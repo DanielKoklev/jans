@@ -1,0 +1,144 @@
+name: Full Rebuild with Disabled Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      VERSION_NAME:
+        description: 'Which version should be used'
+        required: true
+        type: string
+      MAVEN_SKIP_TESTS:
+        description: 'Set to true if need to trigger build without tests execution'
+        required: true
+        type: boolean
+      PROFILE_NAME:
+        description: 'Profile name which build should use'
+        required: false
+        type: string
+      CONTAINER_NAME:
+        description: 'LXC container name. Examples: ubuntu20-ldap, ubuntu20-couchbase, ubuntu20-mysql, ubuntu20-spanner'
+        required: false
+        type: string
+      DEVELOPMENT_BUILD:
+        description: 'Enabled or disable TRACE log level'
+        required: false
+        type: boolean
+      DEPLOY_BUILD:
+        description: 'Enabled or disable war file deployment'
+        required: false
+        type: boolean
+      SKIP_FINDBUGS:
+        description: 'Skip findbug check'
+        required: false
+        type: boolean
+      CVSS_SCORE:
+        description: 'Common Vulnerability Scoring System SIG'
+        required: false
+        type: boolean
+      DEPENDENCY_CHECK:
+        description: 'Enable OWASP check'
+        required: false
+        type: boolean
+      TEST_CONF_IN_HOST:
+        description: 'Is test profile location in host or in lxc'
+        required: false
+        type: boolean
+
+jobs:
+  trigger-workflows:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Trigger jans-bom workflow
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: 'jans-bom.yml'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}'
+    
+    - name: Trigger jans-orm workflow
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: 'jans-orm.yml'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+
+    - name: Trigger jans-core workflow
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: 'jans-core.yml'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+
+    - name: Trigger jans-lock workflow
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: 'jans-lock.yml'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"PROFILE_NAME": "${{ github.event.inputs.PROFILE_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+
+    - name: Trigger jans-agama workflow
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: 'jans-agama.yml'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"PROFILE_NAME": "${{ github.event.inputs.PROFILE_NAME }}"}, {"CONTAINER_NAME": "${{ github.event.inputs.CONTAINER_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+
+    - name: Trigger jans-auth-server workflow
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: 'jans-auth-server.yml'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"PROFILE_NAME": "${{ github.event.inputs.PROFILE_NAME }}"}, {"CONTAINER_NAME": "${{ github.event.inputs.CONTAINER_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+
+    - name: Trigger jans-link workflow
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: 'jans-link.yml'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+
+    - name: Trigger jans-fido2 workflow
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: 'jans-fido2.yml'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"PROFILE_NAME": "${{ github.event.inputs.PROFILE_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+
+    - name: Trigger jans-scim workflow
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: 'jans-scim.yml'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"PROFILE_NAME": "${{ github.event.inputs.PROFILE_NAME }}"}, {"CONTAINER_NAME": "${{ github.event.inputs.CONTAINER_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+
+    - name: Trigger jans-keycloak-link workflow
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: 'jans-keycloak-link.yml'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+
+    - name: Trigger jans-config-api workflow
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: 'jans-config-api.yml'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"PROFILE_NAME": "${{ github.event.inputs.PROFILE_NAME }}"}, {"CONTAINER_NAME": "${{ github.event.inputs.CONTAINER_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+
+    - name: Trigger jans-keycloak workflow
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: 'jans-keycloak.yml'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+
+    - name: Trigger jans-casa workflow
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: 'jans-casa.yml'
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'

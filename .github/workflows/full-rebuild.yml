@@ -55,10 +55,8 @@ jobs:
 
     - name: Prepare jans-auth-server
       run: |
-        pwd
-        ls
-        sudo chmod u+x docker-jans-monolith/scripts/entrypoint.sh
-        source docker-jans-monolith/scripts/entrypoint.sh prepare_java_tests
+        sudo chmod a+x docker-jans-monolith/scripts/entrypoint.sh
+        ./docker-jans-monolith/scripts/entrypoint.sh prepare_java_tests
 
     - name: Build jans-auth-server
       run: |

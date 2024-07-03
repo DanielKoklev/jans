@@ -129,12 +129,6 @@ jobs:
       with:
         java-version: '17'
         distribution: 'adopt'
-<<<<<<< HEAD
-=======
-
-    - name: Delete workspace before build
-      run: rm -rf ${{ github.workspace }}/*
->>>>>>> a6b115877b (Update to one workflow)
 
     - name: Set up Maven
       uses: actions/setup-java@v4
@@ -143,7 +137,6 @@ jobs:
         distribution: 'adopt'
         cache: 'maven'
 
-<<<<<<< HEAD
     # - name: Jans LDAP Container
     #   uses: hoverkraft-tech/compose-action@v2.0.1
     #   with:
@@ -174,18 +167,3 @@ jobs:
     #   if: always()
     #   run: |
     #     mvn -f jans-auth-server/agama/engine/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
-=======
-    - name: Build jans-auth-server
-      run: |
-        mvn -f jans-auth-server/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} -Ddevelopment-build=${{ env.DEVELOPMENT_BUILD }} -Dcvss-score=${{ env.CVSS_SCORE }} -Dfindbugs.skip=${{ env.SKIP_FINDBUGS }} -Ddependency.check=${{ env.DEPENDENCY_CHECK }} -U -fae clean compile install javadoc:javadoc site
-
-    - name: Archive results
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-results
-        path: jans-auth-server/target
-
-    - name: Send notification on failure
-      if: failure()
-      run: echo "Build failed"
->>>>>>> a6b115877b (Update to one workflow)

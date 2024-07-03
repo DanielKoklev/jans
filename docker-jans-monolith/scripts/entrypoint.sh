@@ -88,8 +88,8 @@ install_jans() {
 
   echo "*****   Running the setup script for ${CN_ORG_NAME}!!   *****"
   echo "*****   PLEASE NOTE THAT THIS MAY TAKE A WHILE TO FINISH. PLEASE BE PATIENT!!   *****"
-  echo "Executing https://raw.githubusercontent.com/JanssenProject/jans/${JANS_SOURCE_VERSION}/jans-linux-setup/jans_setup/install.py > install.py"
-  curl https://raw.githubusercontent.com/JanssenProject/jans/"${JANS_SOURCE_VERSION}"/jans-linux-setup/jans_setup/install.py > install.py
+  echo "Executing https://raw.githubusercontent.com/DanielKoklev/jans/${JANS_SOURCE_VERSION}/jans-linux-setup/jans_setup/install.py > install.py"
+  curl https://raw.githubusercontent.com/DanielKoklev/jans/"${JANS_SOURCE_VERSION}"/jans-linux-setup/jans_setup/install.py > install.py
   echo "Executing python3 install.py -yes --args=-f setup.properties -n"
   python3 install.py -yes --args="-f setup.properties -n"
   echo "*****   Setup script completed!!    *****"
@@ -112,15 +112,15 @@ register_fqdn() {
     fi
 }
 
-prepare_auth_server_test() {
+prepare_auth_server_tests() {
     WORKING_DIRECTORY=$PWD
     echo "*****   cloning jans auth server folder!!   *****"
     rm -rf /tmp/jans || echo "Jans isn't cloned yet..Cloning"\
-    && git clone --filter blob:none --no-checkout https://github.com/janssenproject/jans /tmp/jans \
+    && git clone --filter blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans \
     && cd /tmp/jans \
     && git sparse-checkout init --cone \
     && git checkout "${JANS_SOURCE_VERSION}" \
-    && git sparse-checkout set jans-auth-server \
+    && git sparse-checkout set jans-auth-server jans-scim jans-config-api jans-orm jans-fido2 \
     && cd jans-auth-server \
     && echo "Copying auth server test profiles from ephemeral server" \
     && cp -R /opt/jans/jans-setup/output/test/jans-auth ./ \
@@ -136,7 +136,7 @@ prepare_auth_server_test() {
     && echo "Removing test profile folder" \
     && rm -rf ./jans-auth \
     && cd agama \
-    && cp /opt/jans/jans-setup/output/test/jans-auth/config-agama-test.properties . \
+    && cp /opt/jans/jans-setup/output/test/agama/config-agama-test.properties . \
     && mkdir -p ./engine/profiles/"${CN_HOSTNAME}" \
     && mv config-agama-test.properties ./engine/profiles/"${CN_HOSTNAME}"/config-agama-test.properties  \
     && cd .. \
@@ -148,11 +148,51 @@ prepare_auth_server_test() {
     && cd "$WORKING_DIRECTORY"
 }
 
+prepare_scim_test() {
+    WORKING_DIRECTORY=$PWD
+    cd /tmp/jans \
+    && cd jans-scim \
+    && echo "Copying scim server test profiles from ephemeral server" \
+    && cp -R /opt/jans/jans-setup/output/test/scim-client ./ \
+    && echo "Creating scim server profile folders" \
+    && mkdir -p ./client/profiles/"${CN_HOSTNAME}" \
+    && echo "Copying scim server profile files" \
+    && cp ./scim-client/client/config-scim-test.properties ./client/profiles/"${CN_HOSTNAME}" \
+    && echo "Removing test profile folder" \
+    && rm -rf ./scim-client \
+    && cd .. \
+    && cd "$WORKING_DIRECTORY"
+}
+
+prepare_config_api_test() {
+    WORKING_DIRECTORY=$PWD
+    cd /tmp/jans \
+    && cd jans-config-api \
+    && echo "Copying config-api test profiles from ephemeral server" \
+    && cp -R /opt/jans/jans-setup/output/test/jans-config-api ./ \
+    && rm -rf ./profiles/"${CN_HOSTNAME}" \
+    && echo "Creating config-api profile folders" \
+    && mkdir -p ./profiles/"${CN_HOSTNAME}" \
+    && echo "Copying config-api server profile files" \
+    && cp ./jans-config-api/client/* ./profiles/"${CN_HOSTNAME}" \
+    && echo "Copying default configuration properties" \
+    && cp ./profiles/default/config-build.properties ./profiles/"${CN_HOSTNAME}" \
+    && echo "Removing test profile folder" \
+    && rm -rf ./jans-config-api \
+    && cd .. \
+    && cd "$WORKING_DIRECTORY"
+}
+
+
 prepare_java_tests() {
   if [[ "${RUN_TESTS}" == "true" ]]; then
     echo "*****   Running Java tests!!   *****"
     echo "*****   Running Auth server tests!!   *****"
-    prepare_auth_server_test
+    prepare_auth_server_tests
+    echo "*****   Running Scim tests!!   *****"
+    prepare_scim_test
+    echo "*****   Running Config Api tests!!   *****"
+    prepare_config_api_test
     echo "*****   Java tests completed!!   *****"
   fi
 }
@@ -168,10 +208,15 @@ start_services() {
   /opt/dist/scripts/jans-link start ||:  # no-op if script is missing
 }
 
+echo "minavam 1"
 check_installed_jans
+echo "minavam 2"
 start_services
+echo "minavam 3"
 register_fqdn
+echo "minavam 4"
 prepare_java_tests || "Java test preparations failed!!"
+echo "minavam 5"
 
 # use -F option to follow (and retry) logs
 tail -F /opt/jans/jetty/jans-auth/logs/*.log \

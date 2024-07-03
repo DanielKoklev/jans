@@ -23,7 +23,7 @@ class Discovery(DiscoveryType):
     # This method is called after discovery response is ready (and passed as `responseAsJsonObject` method parameter). Hence script can override them
     # Note :
     # responseAsJsonObject - is org.json.JSONObject, you can use any method to manipulate JSON
-    # context is reference of io.jans.as.server.model.common.ExecutionContext (in https://github.com/JanssenProject/jans-auth-server project, )
+    # context is reference of io.jans.as.server.model.common.ExecutionContext (in https://github.com/DanielKoklev/jans-auth-server project, )
     def modifyResponse(self, response, context):
         response.accumulate("key_from_script", "value_from_script")
         return True

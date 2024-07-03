@@ -17,7 +17,7 @@ from setup_app.utils.ldif_utils import myLdifParser
 from setup_app.installers.jetty import JettyInstaller
 
 Config.casa_web_port = '8080'
-CASA_GIT = 'https://raw.githubusercontent.com/JanssenProject/jans/main/jans-casa'
+CASA_GIT = 'https://raw.githubusercontent.com/DanielKoklev/jans/main/jans-casa'
 
 class CasaInstaller(JettyInstaller):
 

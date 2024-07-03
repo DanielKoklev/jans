@@ -46,9 +46,6 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
 
-    - name: Delete workspace before build
-      run: rm -rf ${{ github.workspace }}/*
-
     - name: Set up Maven
       uses: actions/setup-java@v3
       with:

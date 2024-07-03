@@ -1,92 +1,38 @@
-name: Full Build
+name: Jans Projects CI/CD
+
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+  schedule:
+    - cron: '0 8 * * *'
   workflow_dispatch:
     inputs:
-      build_all:
-        description: 'Build all projects'
+      project:
+        description: 'Select the project to build'
         required: true
-        default: true
-        type: boolean
-      build_jans_agama:
-        description: 'Build jans-agama'
-        required: false
-        default: false
-        type: boolean
-      build_jans_auth_server:
-        description: 'Build jans-auth-server'
-        required: false
-        default: false
-        type: boolean
-      build_jans_bom:
-        description: 'Build jans-bom'
-        required: false
-        default: false
-        type: boolean
-      build_jans_casa:
-        description: 'Build jans-casa'
-        required: false
-        default: false
-        type: boolean
-      build_jans_config_api:
-        description: 'Build jans-config-api'
-        required: false
-        default: false
-        type: boolean
-      build_jans_core:
-        description: 'Build jans-core'
-        required: false
-        default: false
-        type: boolean
-      build_jans_fido2:
-        description: 'Build jans-fido2'
-        required: false
-        default: false
-        type: boolean
-      build_jans_keycloak_link:
-        description: 'Build jans-keycloak-link'
-        required: false
-        default: false
-        type: boolean
-      build_jans_keycloak: 
-        description: 'Build jans-keycloak'
-        required: false
-        default: false
-        type: boolean
-      build_jans_keycloak_integration:
-        description: 'Build jans-keycloak-integration'
-        required: false
-        default: false
-        type: boolean
-      build_jans_link: 
-        description: 'Build jans-link'
-        required: false
-        default: false
-        type: boolean
-      build_jans_lock:
-        description: 'Build jans-lock'
-        required: false
-        default: false
-        type: boolean
-      build_jans_orm:
-        description: 'Build jans-orm'
-        required: false
-        default: false
-        type: boolean
-      build_jans_scim:
-        description: 'Build jans-scim'
-        required: false
-        default: false
-        type: boolean
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - jans-bom
+          - jans-orm
+          - jans-core
+          - jans-lock
+          - jans-agama
+          - jans-auth-server
+          - jans-link
+          - jans-fido2
+          - jans-scim
+          - jans-keycloak-link
+          - jans-config-appi
+          - jans-keycloak
+          - jans-casa
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     env:
       VERSION_NAME: main
       MAVEN_SKIP_TESTS: true
@@ -95,6 +41,7 @@ jobs:
       DEVELOPMENT_BUILD: ""
       CVSS_SCORE: ""
       SKIP_FINDBUGS: ""
+      DEPENDENCY_CHECK: ""
 
     steps:
     - name: Checkout code

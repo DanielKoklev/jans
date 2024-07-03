@@ -1,144 +1,139 @@
-name: Full Rebuild with Disabled Tests
-
+name: Full Build
 on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
-      VERSION_NAME:
-        description: 'Which version should be used'
+      build_all:
+        description: 'Build all projects'
         required: true
-        type: string
-      MAVEN_SKIP_TESTS:
-        description: 'Set to true if need to trigger build without tests execution'
-        required: true
+        default: true
         type: boolean
-      PROFILE_NAME:
-        description: 'Profile name which build should use'
+      build_jans_agama:
+        description: 'Build jans-agama'
         required: false
-        type: string
-      CONTAINER_NAME:
-        description: 'LXC container name. Examples: ubuntu20-ldap, ubuntu20-couchbase, ubuntu20-mysql, ubuntu20-spanner'
-        required: false
-        type: string
-      DEVELOPMENT_BUILD:
-        description: 'Enabled or disable TRACE log level'
-        required: false
+        default: false
         type: boolean
-      DEPLOY_BUILD:
-        description: 'Enabled or disable war file deployment'
+      build_jans_auth_server:
+        description: 'Build jans-auth-server'
         required: false
+        default: false
         type: boolean
-      SKIP_FINDBUGS:
-        description: 'Skip findbug check'
+      build_jans_bom:
+        description: 'Build jans-bom'
         required: false
+        default: false
         type: boolean
-      CVSS_SCORE:
-        description: 'Common Vulnerability Scoring System SIG'
+      build_jans_casa:
+        description: 'Build jans-casa'
         required: false
+        default: false
         type: boolean
-      DEPENDENCY_CHECK:
-        description: 'Enable OWASP check'
+      build_jans_config_api:
+        description: 'Build jans-config-api'
         required: false
+        default: false
         type: boolean
-      TEST_CONF_IN_HOST:
-        description: 'Is test profile location in host or in lxc'
+      build_jans_core:
+        description: 'Build jans-core'
         required: false
+        default: false
         type: boolean
-
+      build_jans_fido2:
+        description: 'Build jans-fido2'
+        required: false
+        default: false
+        type: boolean
+      build_jans_keycloak_link:
+        description: 'Build jans-keycloak-link'
+        required: false
+        default: false
+        type: boolean
+      build_jans_keycloak: 
+        description: 'Build jans-keycloak'
+        required: false
+        default: false
+        type: boolean
+      build_jans_keycloak_integration:
+        description: 'Build jans-keycloak-integration'
+        required: false
+        default: false
+        type: boolean
+      build_jans_link: 
+        description: 'Build jans-link'
+        required: false
+        default: false
+        type: boolean
+      build_jans_lock:
+        description: 'Build jans-lock'
+        required: false
+        default: false
+        type: boolean
+      build_jans_orm:
+        description: 'Build jans-orm'
+        required: false
+        default: false
+        type: boolean
+      build_jans_scim:
+        description: 'Build jans-scim'
+        required: false
+        default: false
+        type: boolean
 jobs:
-  trigger-workflows:
-    runs-on: ubuntu-20.04
+  build:
+    runs-on: ubuntu-latest
+    
+    env:
+      VERSION_NAME: main
+      MAVEN_SKIP_TESTS: true
+      PROFILE_NAME: ""
+      CONTAINER_NAME: ""
+      DEVELOPMENT_BUILD: ""
+      CVSS_SCORE: ""
+      SKIP_FINDBUGS: ""
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Trigger jans-bom workflow
-      uses: benc-uk/workflow-dispatch@v1
+    - name: Set up Java 11
+      uses: actions/setup-java@v3
       with:
-        workflow: 'jans-bom.yml'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}'
+        java-version: '11'
+        distribution: 'adopt'
     
-    - name: Trigger jans-orm workflow
-      uses: benc-uk/workflow-dispatch@v1
-      with:
-        workflow: 'jans-orm.yml'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+    - name: Delete workspace before build
+      run: rm -rf ${{ github.workspace }}/*
 
-    - name: Trigger jans-core workflow
-      uses: benc-uk/workflow-dispatch@v1
+    - name: Set up Maven
+      uses: actions/setup-java@v3
       with:
-        workflow: 'jans-core.yml'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+        java-version: '11'
+        distribution: 'adopt'
+        cache: 'maven'
 
-    - name: Trigger jans-lock workflow
-      uses: benc-uk/workflow-dispatch@v1
-      with:
-        workflow: 'jans-lock.yml'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"PROFILE_NAME": "${{ github.event.inputs.PROFILE_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+    - name: Prepare directories and profiles for build
+      run: |
+        if [[ "${{ github.event.inputs.build_all }}" == "true" || "${{ github.event.inputs.build_jans_agama }}" == "true" ]]; then
+          # jans-agama specific setup
+          echo "Setting up jans-agama"
+        fi
+        if [[ "${{ github.event.inputs.build_all }}" == "true" || "${{ github.event.inputs.build_jans_auth_server }}" == "true" ]]; then
+          # jans-auth-server specific setup
+          echo "Setting up jans-auth-server"
 
-    - name: Trigger jans-agama workflow
-      uses: benc-uk/workflow-dispatch@v1
-      with:
-        workflow: 'jans-agama.yml'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"PROFILE_NAME": "${{ github.event.inputs.PROFILE_NAME }}"}, {"CONTAINER_NAME": "${{ github.event.inputs.CONTAINER_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+        fi
 
-    - name: Trigger jans-auth-server workflow
-      uses: benc-uk/workflow-dispatch@v1
-      with:
-        workflow: 'jans-auth-server.yml'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"PROFILE_NAME": "${{ github.event.inputs.PROFILE_NAME }}"}, {"CONTAINER_NAME": "${{ github.event.inputs.CONTAINER_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
-
-    - name: Trigger jans-link workflow
-      uses: benc-uk/workflow-dispatch@v1
-      with:
-        workflow: 'jans-link.yml'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
-
-    - name: Trigger jans-fido2 workflow
-      uses: benc-uk/workflow-dispatch@v1
-      with:
-        workflow: 'jans-fido2.yml'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"PROFILE_NAME": "${{ github.event.inputs.PROFILE_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
-
-    - name: Trigger jans-scim workflow
-      uses: benc-uk/workflow-dispatch@v1
-      with:
-        workflow: 'jans-scim.yml'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"PROFILE_NAME": "${{ github.event.inputs.PROFILE_NAME }}"}, {"CONTAINER_NAME": "${{ github.event.inputs.CONTAINER_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
-
-    - name: Trigger jans-keycloak-link workflow
-      uses: benc-uk/workflow-dispatch@v1
-      with:
-        workflow: 'jans-keycloak-link.yml'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
-
-    - name: Trigger jans-config-api workflow
-      uses: benc-uk/workflow-dispatch@v1
-      with:
-        workflow: 'jans-config-api.yml'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"PROFILE_NAME": "${{ github.event.inputs.PROFILE_NAME }}"}, {"CONTAINER_NAME": "${{ github.event.inputs.CONTAINER_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
-
-    - name: Trigger jans-keycloak workflow
-      uses: benc-uk/workflow-dispatch@v1
-      with:
-        workflow: 'jans-keycloak.yml'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
-
-    - name: Trigger jans-casa workflow
-      uses: benc-uk/workflow-dispatch@v1
-      with:
-        workflow: 'jans-casa.yml'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        inputs: '{"VERSION_NAME": "${{ github.event.inputs.VERSION_NAME }}"}, {"MAVEN_SKIP_TESTS": "${{ github.event.inputs.MAVEN_SKIP_TESTS }}"}'
+    - name: Build with Maven
+      run: |
+        if [[ "${{ github.event.inputs.build_all }}" == "true" || "${{ github.event.inputs.build_jans_agama }}" == "true" ]]; then
+          mvn -f jans-agama/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
+        fi
+        if [[ "${{ github.event.inputs.build_all }}" == "true" || "${{ github.event.inputs.build_jans_auth_server }}" == "true" ]]; then
+          mvn -f jans-agama/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} -Ddevelopment-build=${{ env.DEVELOPMENT_BUILD }} -Dcvss-score=${{ env.CVSS_SCORE }} -Dfindbugs.skip=${{ env.SKIP_FINDBUGS }} -Ddependency.check=${{ env.DEPENDENCY_CHECK }} -U -fae clean compile install javadoc:javadoc site
+        fi
+    

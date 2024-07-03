@@ -63,24 +63,82 @@ jobs:
         distribution: 'adopt'
         cache: 'maven'
 
-    - name: Prepare directories and profiles for build
+    - name: Determine changed files
+      id: changes
       run: |
-        if [[ "${{ github.event.inputs.build_all }}" == "true" || "${{ github.event.inputs.build_jans_agama }}" == "true" ]]; then
-          # jans-agama specific setup
-          echo "Setting up jans-agama"
-        fi
-        if [[ "${{ github.event.inputs.build_all }}" == "true" || "${{ github.event.inputs.build_jans_auth_server }}" == "true" ]]; then
-          # jans-auth-server specific setup
-          echo "Setting up jans-auth-server"
+        git fetch origin main
+        git diff --name-only origin/main > changed_files.txt
+        echo "changed_files=$(cat changed_files.txt)" >> $GITHUB_ENV
 
-        fi
-
-    - name: Build with Maven
+    - name: Build Projects Conditionally
       run: |
-        if [[ "${{ github.event.inputs.build_all }}" == "true" || "${{ github.event.inputs.build_jans_agama }}" == "true" ]]; then
-          mvn -f jans-agama/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
+        changed_files=$(cat changed_files.txt)
+        build_all=false
+
+        if [[ "${{ github.event.inputs.project }}" == "all" ]]; then
+          build_all=true
         fi
-        if [[ "${{ github.event.inputs.build_all }}" == "true" || "${{ github.event.inputs.build_jans_auth_server }}" == "true" ]]; then
-          mvn -f jans-agama/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} -Ddevelopment-build=${{ env.DEVELOPMENT_BUILD }} -Dcvss-score=${{ env.CVSS_SCORE }} -Dfindbugs.skip=${{ env.SKIP_FINDBUGS }} -Ddependency.check=${{ env.DEPENDENCY_CHECK }} -U -fae clean compile install javadoc:javadoc site
+
+        if $build_all || [[ $changed_files == *"jans-auth-server"* ]]; then
+          echo "Building jans-auth-server"
+          mvn -f jans-auth-server/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} -Ddevelopment-build=${{ env.DEVELOPMENT_BUILD }} -Dcvss-score=${{ env.CVSS_SCORE }} -Dfindbugs.skip=${{ env.SKIP_FINDBUGS }} -Ddependency.check=${{ env.DEPENDENCY_CHECK }} -U -fae clean compile install javadoc:javadoc site
         fi
-    
+
+    - name: Move javadoc files in appropriate location
+      if: ${{ steps.changes.outputs.build_jans_auth_server == 'true' }}
+      run: |
+        cd jans-auth-server
+
+        rm -rf ./jans-auth
+        rm -rf ./client/profiles/${{ env.PROFILE_NAME }}
+        rm -rf ./server/profiles/${{ env.PROFILE_NAME }}
+
+        mkdir -p /var/www/html/javadocs/jans-auth/${{ env.VERSION_NAME}}
+
+        rm -rf /var/www/html/javadocs/jans-auth/${{ env.VERSION_NAME }}/client/{apidocs,css,images} 
+        rm -rf /var/www/html/javadocs/jans-auth/${{ env.VERSION_NAME }}/model/{apidocs,css,images} 
+        rm -rf /var/www/html/javadocs/jans-auth/${{ env.VERSION_NAME }}/server/{apidocs,css,images} 
+
+        mkdir -p /var/www/html/javadocs/jans-auth/${{ env.VERSION_NAME }}/{client,model,server}
+
+        cp -rv ./client/target/site/apidocs/* /var/www/html/javadocs/jans-auth/${{ env.VERSION_NAME }}/client/
+        cp -rv ./model/target/site/apidocs/* /var/www/html/javadocs/jans-auth/${{ env.VERSION_NAME }}/model/
+        cp -rv ./server/target/site/apidocs/* /var/www/html/javadocs/jans-auth/${{ env.VERSION_NAME }}/server/
+
+    - name: Trigger DeployWar Workflow
+      if: ${{ steps.changes.outputs.build_jans_auth_server == 'true' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        curl --location --request POST 'https://api.github.com/repos/YourRepo/YourProject/actions/workflows/deploy-war.yml/dispatches' \
+        --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+        --header 'Content-Type: application/json' \
+        --data '{
+          "ref": "main",
+          "inputs": {
+            "SERVER_NAME": "${{ env.PROFILE_NAME }}",
+            "SERVICE_NAME": "jans-auth",
+            "CE_VERSION": "1.0",
+            "WAR_LOCATION": "https://jenkins.jans.io/maven/io/jans/jans-auth-server/1.0.2-SNAPSHOT/jans-auth-server-1.0.2-SNAPSHOT.war"
+          }
+        }'
+
+    - name: Execute build docker-image workflow
+      if: ${{ steps.changes.outputs.build_jans_auth_server == 'true' }}
+      env:
+        GITGLUUTOKEN: ${{ secrets.GITGLUUTOKEN }}
+      run: |
+        curl --location --request POST 'https://api.github.com/repos/JanssenProject/jans-cloud-native/actions/workflows/15443035/dispatches' \
+        --header 'Authorization: Bearer '${{ secrets.GITGLUUTOKEN }} \
+        --header 'Content-Type: application/json' \
+        --data '{"ref":"master", "inputs": { "services":"docker-jans-lock" }}'
+
+    - name: Archive results
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-results
+        path: target
+
+    - name: Send notification on failure
+      if: failure()
+      run: echo "Build failed"

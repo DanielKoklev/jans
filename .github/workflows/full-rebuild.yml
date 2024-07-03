@@ -120,6 +120,7 @@ jobs:
     steps:
 
     - name: Checkout code
+<<<<<<< HEAD
       uses: actions/checkout@v4
       with:
         ref: ${{ github.event.inputs.branch }}
@@ -167,3 +168,44 @@ jobs:
     #   if: always()
     #   run: |
     #     mvn -f jans-auth-server/agama/engine/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
+=======
+      uses: actions/checkout@v3
+
+    - name: Set up Java 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+    
+    - name: Delete workspace before build
+      run: rm -rf ${{ github.workspace }}/*
+
+    - name: Set up Maven
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+        cache: 'maven'
+
+    - name: Prepare directories and profiles for build
+      run: |
+        if [[ "${{ github.event.inputs.build_all }}" == "true" || "${{ github.event.inputs.build_jans_agama }}" == "true" ]]; then
+          # jans-agama specific setup
+          echo "Setting up jans-agama"
+        fi
+        if [[ "${{ github.event.inputs.build_all }}" == "true" || "${{ github.event.inputs.build_jans_auth_server }}" == "true" ]]; then
+          # jans-auth-server specific setup
+          echo "Setting up jans-auth-server"
+
+        fi
+
+    - name: Build with Maven
+      run: |
+        if [[ "${{ github.event.inputs.build_all }}" == "true" || "${{ github.event.inputs.build_jans_agama }}" == "true" ]]; then
+          mvn -f jans-agama/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
+        fi
+        if [[ "${{ github.event.inputs.build_all }}" == "true" || "${{ github.event.inputs.build_jans_auth_server }}" == "true" ]]; then
+          mvn -f jans-agama/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} -Ddevelopment-build=${{ env.DEVELOPMENT_BUILD }} -Dcvss-score=${{ env.CVSS_SCORE }} -Dfindbugs.skip=${{ env.SKIP_FINDBUGS }} -Ddependency.check=${{ env.DEPENDENCY_CHECK }} -U -fae clean compile install javadoc:javadoc site
+        fi
+    
+>>>>>>> 01a063b5aa (Update to one workflow)

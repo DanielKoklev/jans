@@ -3,12 +3,12 @@ name: Jans Auth Server CI/CD
 on:
   push:
     branches:
-      - main
+      - migration/jenkins-pipelines
   schedule:
     - cron: '0 8 * * *'
   pull_request:
     branches:
-      - main
+      - migration/jenkins-pipelines
   workflow_dispatch:
     inputs:
       project:
@@ -18,10 +18,7 @@ on:
         type: choice
         options:
           - jans-auth-server
-      branch:
-        description: 'Branch to run the workflow on'
-        required: true
-        default: 'main'
+
 
 jobs:
   build:

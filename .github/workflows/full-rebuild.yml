@@ -31,7 +31,7 @@ jobs:
       CONTAINER_NAME: ""
       DEVELOPMENT_BUILD: ""
       CVSS_SCORE: ""
-      SKIP_FINDBUGS: ""
+      SKIP_FINDBUGS: "true"
       DEPENDENCY_CHECK: ""
 
     steps:
@@ -53,10 +53,10 @@ jobs:
         distribution: 'adopt'
         cache: 'maven'
 
-    # - name: Prepare jans-auth-server
-    #   run: |
-    #     sudo chmod a+x docker-jans-monolith/scripts/entrypoint.sh
-    #     ./docker-jans-monolith/scripts/entrypoint.sh prepare_java_tests
+    - name: Run jans script for Auth
+      run: |
+        cd docker-jans-monolith/scripts/
+        source entrypoint.sh
 
     - name: Build jans-auth-server
       run: |

@@ -67,9 +67,9 @@ jobs:
       run: |
         mvn -f jans-auth-server/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
     
-    - name: Copy Maven settings
-      run: |
-        cp .github/maven-settings.xml ${{ runner.temp }}/maven-settings.xml
+    # - name: Copy Maven settings
+    #   run: |
+    #     cp .github/maven-settings.xml ${{ runner.temp }}/maven-settings.xml
 
     - name: Publish to GitHub Packages
       run: mvn --batch-mode deploy

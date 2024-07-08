@@ -65,11 +65,15 @@ jobs:
       run: |
         mvn -f jans-auth-server/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
     
-    - name: Publish packages to Github
-      run: mvn deploy --settings .github/maven-settings.xml
+    - name: Copy Maven settings
+      run: |
+        cp .github/maven-settings.xml ${{ runner.temp }}/maven-settings.xml
+
+    - name: Publish to GitHub Packages
+      run: mvn deploy --settings ${{ runner.temp }}/maven-settings.xml
       working-directory: jans-auth-server
       env:
-        GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}
+        MY_GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}
 
     - name: Archive results
       if: always()

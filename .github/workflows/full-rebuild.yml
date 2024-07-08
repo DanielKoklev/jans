@@ -23,7 +23,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
+      packages: write
     env:
       VERSION_NAME: main
       MAVEN_SKIP_TESTS: true
@@ -54,7 +56,7 @@ jobs:
         cache: 'maven'
 
     - name: Cache Maven packages
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -70,7 +72,7 @@ jobs:
         cp .github/maven-settings.xml ${{ runner.temp }}/maven-settings.xml
 
     - name: Publish to GitHub Packages
-      run: mvn deploy --settings ${{ runner.temp }}/maven-settings.xml
+      run: mvn --batch-mode deploy
       working-directory: jans-auth-server
       env:
         GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}

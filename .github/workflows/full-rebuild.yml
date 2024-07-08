@@ -73,7 +73,7 @@ jobs:
       run: mvn deploy --settings ${{ runner.temp }}/maven-settings.xml
       working-directory: jans-auth-server
       env:
-        MY_GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}
 
     - name: Archive results
       if: always()

@@ -60,8 +60,7 @@ jobs:
 
     - name: Build jans-auth-server
       run: |
-        mvn -f jans-auth-server/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} -Ddevelopment-build=${{ env.DEVELOPMENT_BUILD }} -Dcvss-score=${{ env.CVSS_SCORE }} -Dfindbugs.skip=${{ env.SKIP_FINDBUGS }} -Ddependency.check=${{ env.DEPENDENCY_CHECK }} clean compile install javadoc:javadoc site
-
+        mvn -f jans-auth-server/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} -Ddevelopment-build=${{ env.DEVELOPMENT_BUILD }} -Dcvss-score=${{ env.CVSS_SCORE }} -Dfindbugs.skip=${{ env.SKIP_FINDBUGS }} -Ddependency.check=${{ env.DEPENDENCY_CHECK }} clean compile install
     - name: Publish packages to Github
       run: mvn deploy --settings .github/maven-settings.xml
       env:

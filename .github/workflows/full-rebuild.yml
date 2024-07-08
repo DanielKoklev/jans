@@ -53,10 +53,10 @@ jobs:
         distribution: 'adopt'
         cache: 'maven'
 
-    - name: Run jans script for Auth
-      run: |
-        cd docker-jans-monolith/scripts/
-        source entrypoint.sh
+    # - name: Run jans script for Auth
+    #   run: |
+    #     cd docker-jans-monolith/scripts/
+    #     source entrypoint.sh
 
     - name: Build jans-auth-server
       run: |

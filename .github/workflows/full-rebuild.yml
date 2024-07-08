@@ -55,24 +55,20 @@ jobs:
         distribution: 'adopt'
         cache: 'maven'
 
-    - name: Cache Maven packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
+    # - name: Cache Maven packages
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: ~/.m2/repository
+    #     key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-maven-
 
     - name: Build jans-auth-server
       run: |
         mvn -f jans-auth-server/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
-    
-    # - name: Copy Maven settings
-    #   run: |
-    #     cp .github/maven-settings.xml ${{ runner.temp }}/maven-settings.xml
 
     - name: Publish to GitHub Packages
-      run: mvn --batch-mode deploy
+      run: mvn -B deploy
       working-directory: jans-auth-server
       env:
         GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}

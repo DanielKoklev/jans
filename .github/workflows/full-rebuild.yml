@@ -116,18 +116,7 @@ jobs:
       SKIP_FINDBUGS: true
       DEPENDENCY_CHECK: true
       VERSION_NAME: main
-<<<<<<< HEAD
       PROFILE_NAME: default
-=======
-      MAVEN_SKIP_TESTS: true
-      PROFILE_NAME: "jenkins-build.jans.io"
-      CONTAINER_NAME: "ubuntu20-ldap"
-      # DEVELOPMENT_BUILD: ""
-      # CVSS_SCORE: ""
-      # SKIP_FINDBUGS: "true"
-      # DEPENDENCY_CHECK: ""
-
->>>>>>> 6145fe3404 (Fixing workflow)
     steps:
 
     - name: Checkout code

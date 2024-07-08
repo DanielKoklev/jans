@@ -68,7 +68,7 @@ jobs:
         mvn -f jans-auth-server/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
 
     - name: Publish to GitHub Packages
-      run: mvn -B deploy
+      run: mvn -B deploy -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }}
       working-directory: jans-auth-server
       env:
         GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}

@@ -27,8 +27,8 @@ jobs:
     env:
       VERSION_NAME: main
       MAVEN_SKIP_TESTS: true
-      PROFILE_NAME: "jenkins-build.jans.io"
-      CONTAINER_NAME: "ubuntu20-ldap"
+      PROFILE_NAME: "default"
+      # CONTAINER_NAME: "ubuntu20-ldap"
       # DEVELOPMENT_BUILD: ""
       # CVSS_SCORE: ""
       # SKIP_FINDBUGS: "true"
@@ -55,7 +55,7 @@ jobs:
 
     - name: Build jans-auth-server
       run: |
-        mvn -f jans-auth-server/pom.xml -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
+        mvn -f jans-auth-server/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
     
     - name: Publish packages to Github
       run: mvn deploy --settings .github/maven-settings.xml

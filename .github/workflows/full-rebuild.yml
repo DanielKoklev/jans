@@ -30,11 +30,28 @@ jobs:
       VERSION_NAME: main
       MAVEN_SKIP_TESTS: true
       PROFILE_NAME: "default"
-      # CONTAINER_NAME: "ubuntu20-ldap"
+      CONTAINER_NAME: "ubuntu20-ldap"
       # DEVELOPMENT_BUILD: ""
       # CVSS_SCORE: ""
       # SKIP_FINDBUGS: "true"
       # DEPENDENCY_CHECK: ""
+
+    strategy:
+      matrix:
+        service:
+          - "jans-bom"
+          - "jans-orm"
+          - "jans-core"
+          - "jans-lock"
+          - "jans-agama"
+          - "jans-auth-server"
+          - "jans-link"
+          - "jans-fido2"
+          - "jans-scim"
+          - "jans-keycloak-link"
+          - "jans-config-api"
+          - "jans-keycloak"
+          - "jans-casa"
 
     steps:
     - name: Checkout code
@@ -61,7 +78,7 @@ jobs:
 
     - name: Publish to GitHub Packages
       run: mvn -B deploy -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }}
-      working-directory: jans-auth-server
+      working-directory: ${{ matrix.service }}
       env:
         GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}
 

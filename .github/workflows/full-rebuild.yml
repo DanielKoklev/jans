@@ -74,10 +74,10 @@ jobs:
 
     - name: Build ${{ matrix.service }}
       run: |
-        mvn -f ${{ matrix.service }}/pom.xml -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean install
+        mvn -f ${{ matrix.service }}/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean install
 
     - name: Publish to GitHub Packages
-      run: mvn -B deploy -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }}
+      run: mvn -B deploy -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} -Dcfg=${{ env.PROFILE_NAME }}
       working-directory: ${{ matrix.service }}
       env:
         GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}

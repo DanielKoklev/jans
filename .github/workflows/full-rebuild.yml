@@ -36,22 +36,22 @@ jobs:
       # SKIP_FINDBUGS: "true"
       # DEPENDENCY_CHECK: ""
 
-    strategy:
-      matrix:
-        service:
-          - "jans-bom"
-          - "jans-orm"
-          - "jans-core"
-          - "jans-lock"
-          - "jans-agama"
-          - "jans-auth-server"
-          - "jans-link"
-          - "jans-fido2"
-          - "jans-scim"
-          - "jans-keycloak-link"
-          - "jans-config-api"
-          - "jans-keycloak"
-          - "jans-casa"
+    # strategy:
+    #   matrix:
+    #     service:
+    #       - "jans-bom"
+    #       - "jans-orm"
+    #       - "jans-core"
+    #       - "jans-lock"
+    #       - "jans-agama"
+    #       - "jans-auth-server"
+    #       - "jans-link"
+    #       - "jans-fido2"
+    #       - "jans-scim"
+    #       - "jans-keycloak-link"
+    #       - "jans-config-api"
+    #       - "jans-keycloak"
+    #       - "jans-casa"
 
     steps:
     - name: Checkout code

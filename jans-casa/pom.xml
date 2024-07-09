@@ -12,6 +12,14 @@
         <maven>${maven.min-version}</maven>
     </prerequisites>
 
+    <distributionManagement>
+	  <repository>
+          <id>github</id>
+          <name>GitHub Packages</name>
+          <url>https://maven.pkg.github.com/DanielKoklev/jans</url>
+      </repository>
+    </distributionManagement>
+
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>

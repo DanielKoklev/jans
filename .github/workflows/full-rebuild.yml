@@ -77,8 +77,8 @@ jobs:
         mvn -f ${{ matrix.service }}/pom.xml -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean install
 
     - name: Publish to GitHub Packages
-      run: mvn -B deploy ${{ matrix.service }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }}
-      # working-directory: ${{ matrix.service }}
+      run: mvn -B deploy -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }}
+      working-directory: ${{ matrix.service }}
       env:
         GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}
 

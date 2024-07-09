@@ -50,7 +50,7 @@ jobs:
           - "jans-scim"
           - "jans-keycloak-link"
           - "jans-config-api"
-          - "jans-keycloak"
+          - "jans-keycloak-integration"
           - "jans-casa"
 
     steps:

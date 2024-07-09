@@ -37,6 +37,7 @@ jobs:
       # DEPENDENCY_CHECK: ""
 
     strategy:
+      max-parallel: 1
       matrix:
         service:
           - "jans-bom"

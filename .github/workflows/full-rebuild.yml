@@ -10,14 +10,6 @@ on:
     branches:
       - migration/jenkins-pipelines
   workflow_dispatch:
-    # inputs:
-    #   project:
-    #     description: 'Select the project to build'
-    #     required: true
-    #     default: 'jans-auth-server'
-    #     type: choice
-    #     options:
-    #       - jans-auth-server
 
 
 jobs:
@@ -40,19 +32,19 @@ jobs:
       max-parallel: 1
       matrix:
         service:
-          # - "jans-bom"
-          # - "jans-orm"
-          # - "jans-core"
-          # - "jans-lock/lock-master"
-          # - "agama"
-          # - "jans-auth-server"
-          # - "jans-link"
-          # - "jans-fido2"
-          # - "jans-scim"
-          # - "jans-keycloak-link"
-          # - "jans-config-api"
+          - "jans-bom"
+          - "jans-orm"
+          - "jans-core"
+          - "jans-lock/lock-master"
+          - "agama"
+          - "jans-auth-server"
+          - "jans-link"
+          - "jans-fido2"
+          - "jans-scim"
+          - "jans-keycloak-link"
+          - "jans-config-api"
           - "jans-keycloak-integration"
-          # - "jans-casa"
+          - "jans-casa"
 
     steps:
     - name: Checkout code

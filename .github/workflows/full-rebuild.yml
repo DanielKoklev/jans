@@ -1,4 +1,4 @@
-name: Jans Auth Server CI/CD
+name: Jans Full Build 
 
 on:
   push:
@@ -10,14 +10,14 @@ on:
     branches:
       - migration/jenkins-pipelines
   workflow_dispatch:
-    inputs:
-      project:
-        description: 'Select the project to build'
-        required: true
-        default: 'jans-auth-server'
-        type: choice
-        options:
-          - jans-auth-server
+    # inputs:
+    #   project:
+    #     description: 'Select the project to build'
+    #     required: true
+    #     default: 'jans-auth-server'
+    #     type: choice
+    #     options:
+    #       - jans-auth-server
 
 
 jobs:
@@ -51,7 +51,7 @@ jobs:
           - "jans-scim"
           - "jans-keycloak-link"
           - "jans-config-api"
-          # - "jans-keycloak-integration"
+          - "jans-keycloak-integration"
           - "jans-casa"
 
     steps:
@@ -75,7 +75,11 @@ jobs:
 
     - name: Build ${{ matrix.service }}
       run: |
-        mvn -f ${{ matrix.service }}/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean install
+        if [ "${{ github.event_name }}" == "pull_request" ]; then
+          mvn -f ${{ matrix.service }}/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean install -Drevision=${{ github.head_ref }}-SNAPSHOT
+        else
+          mvn -f ${{ matrix.service }}/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean install
+        fi
 
     - name: Publish to GitHub Packages
       run: mvn -B deploy -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} -Dcfg=${{ env.PROFILE_NAME }}
@@ -88,8 +92,25 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: build-results
-        path: jans-auth-server/target
+        path: ${{ matrix.service }}/target
 
     - name: Send notification on failure
       if: failure()
       run: echo "Build failed"
+
+  cleanup:
+    if: github.event_name == 'push' && github.event.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Clean up PR assets
+      run: |
+        # List all SNAPSHOT versions
+        versions=$(curl -s -H "Authorization: token ${{ secrets.JANS_TOKEN }}" "https://maven.pkg.github.com/YourUsername/YourRepository/maven-metadata.xml" | grep -oP '(?<=<version>)[^<]+')
+        
+        for version in $versions; do
+          if [[ $version == *-SNAPSHOT ]]; then
+            # Delete the version from GitHub Packages
+            curl -X DELETE -H "Authorization: token ${{ secrets.JANS_TOKEN }}" "https://maven.pkg.github.com/YourUsername/YourRepository/io/jans/jans-auth-server/$version"
+          fi
+        done

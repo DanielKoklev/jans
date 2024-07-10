@@ -32,19 +32,19 @@ jobs:
       max-parallel: 1
       matrix:
         service:
-          - "jans-bom"
-          - "jans-orm"
-          - "jans-core"
-          - "jans-lock/lock-master"
-          - "agama"
-          - "jans-auth-server"
+          # - "jans-bom"
+          # - "jans-orm"
+          # - "jans-core"
+          # - "jans-lock/lock-master"
+          # - "agama"
+          # - "jans-auth-server"
           - "jans-link"
-          - "jans-fido2"
-          - "jans-scim"
-          - "jans-keycloak-link"
-          - "jans-config-api"
-          - "jans-keycloak-integration"
-          - "jans-casa"
+          # - "jans-fido2"
+          # - "jans-scim"
+          # - "jans-keycloak-link"
+          # - "jans-config-api"
+          # - "jans-keycloak-integration"
+          # - "jans-casa"
 
     steps:
     - name: Checkout code

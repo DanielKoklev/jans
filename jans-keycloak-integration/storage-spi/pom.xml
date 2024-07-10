@@ -6,6 +6,14 @@
 	<name>kc-jans-storage-plugin</name>
 	<packaging>jar</packaging>
 
+	<distributionManagement>
+      <repository>
+        <id>github</id>
+        <name>Github Packages</name>
+        <url>https://maven.pkg.github.com/DanielKoklev/jans</url>
+      </repository>
+    </distributionManagement>
+
 	<parent>
 		<groupId>io.jans</groupId>
 		<artifactId>jans-kc-parent</artifactId>

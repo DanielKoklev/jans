@@ -133,8 +133,6 @@ jobs:
     
     - name: Linux Installer
       run: |
-        ls
         cd docker-jans-monolith/scripts/
         sudo chmod 755 entrypoint.sh
         sudo ./entrypoint.sh
-        ll /opt/

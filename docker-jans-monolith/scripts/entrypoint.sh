@@ -71,6 +71,7 @@ install_jans() {
   echo "*****   Setup script completed!!    *****"
   ls -l /opt/dist/jans/
   unzip -l /opt/dist/jans/jans.zip
+  ls -l /opt/dist/jans/jans-main/scripts/
 
 }
 

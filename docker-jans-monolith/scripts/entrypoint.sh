@@ -92,7 +92,7 @@ prepare_auth_server_test() {
     && git clone --filter blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans \
     && cd /tmp/jans \
     && git sparse-checkout init --cone \
-    && git checkout "${JANS_SOURCE_VERSION}" \
+    && git checkout migration/jenkins-pipelines \
     && git sparse-checkout set jans-auth-server \
     && cd jans-auth-server \
     && echo "Copying auth server test profiles from ephemeral server" \

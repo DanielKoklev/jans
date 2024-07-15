@@ -135,4 +135,4 @@ jobs:
       run: |
         pwd
         cd docker-jans-monolith/scripts/
-        sudo ./entrypoint.sh
+        sudo source entrypoint.sh

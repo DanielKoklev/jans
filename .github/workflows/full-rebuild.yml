@@ -131,8 +131,7 @@ jobs:
         cache: 'maven'
 
     
-    - name: Linux Installer
-      run: |
-        cd docker-jans-monolith/scripts/
-        sudo chmod a+x entrypoint.sh
-        sudo ./entrypoint.sh
+    - name: Jans LDAP Compose
+      uses: hoverkraft-tech/compose-action@v2.0.1
+      with:
+       compose-file: "dokcer-jans-monolith/jans-ldap-compose.yml"

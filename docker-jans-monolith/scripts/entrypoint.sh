@@ -69,9 +69,6 @@ install_jans() {
   echo "Executing python3 install.py -yes --args=-f setup.properties -n"
   python3 install.py -yes --args="-f setup.properties -n"
   echo "*****   Setup script completed!!    *****"
-  # ls -l /opt/dist/jans/
-  # unzip -l /opt/dist/jans/jans.zip
-  # ls -l /opt/dist/jans/jans-main/scripts/
 
 }
 

@@ -133,6 +133,5 @@ jobs:
     
     - name: Linux Installer
       run: |
-        pwd
+        ls
         cd docker-jans-monolith/scripts/
-        sudo source entrypoint.sh

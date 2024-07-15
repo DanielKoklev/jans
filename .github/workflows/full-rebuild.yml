@@ -136,4 +136,4 @@ jobs:
         ls
         cd docker-jans-monolith/scripts/
         sudo chmod 755 entrypoint.sh
-        ./entrypoint.sh
+        sudo ./entrypoint.sh

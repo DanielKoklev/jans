@@ -86,7 +86,7 @@ prepare_auth_server_test() {
     WORKING_DIRECTORY=$PWD
     echo "*****   cloning jans auth server folder!!   *****"
     rm -rf /tmp/jans || echo "Jans isn't cloned yet..Cloning"\
-    && git clone --filter blob:none --no-checkout https://github.com/janssenproject/jans /tmp/jans \
+    && git clone --filter blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans \
     && cd /tmp/jans \
     && git sparse-checkout init --cone \
     && git checkout "${JANS_SOURCE_VERSION}" \

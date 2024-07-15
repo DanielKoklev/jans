@@ -107,9 +107,13 @@ jobs:
     env:
       MAVEN_SKIP_TESTS: false
       PERSISTENCE_DB: ldap
-      CONTAINER_NAME: ""
+      CONTAINER_NAME_SPANNER: ubuntu20-spanner
+      CONTAINER_NAME_CB: ubuntu20-couchbase
+      CONTAINER_NAME_LDAP: ubuntu20-ldap
+      CONTAINER_NAME_MYSQL: ubuntu20-mysql
+      CONTAINER_NAME_POSTGRESQL: ubuntu20-postgresql
       VERSION_NAME: main
-      PROFILE_NAME: default
+      PROFILE_NAME: jenkins-build.jans.io
     steps:
 
     - name: Checkout code
@@ -130,8 +134,11 @@ jobs:
         distribution: 'adopt'
         cache: 'maven'
 
-    
-    - name: Jans LDAP Compose
+    - name: Jans LDAP Container
       uses: hoverkraft-tech/compose-action@v2.0.1
       with:
        compose-file: "docker-jans-monolith/jans-ldap-compose.yml"
+
+    - name: Jans ORM
+      run: |
+        mvn -f jans-orm/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean install

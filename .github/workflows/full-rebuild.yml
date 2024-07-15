@@ -103,7 +103,7 @@ jobs:
   #       done
 
   run-ldap-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       MAVEN_SKIP_TESTS: false
       PERSISTENCE_DB: ldap

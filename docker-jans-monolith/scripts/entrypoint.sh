@@ -20,7 +20,7 @@ set -e
 # RDBMS_PASSWORD
 # ======================================================================================================================
 
-IS_JANS_DEPLOYED=/janssen/deployed
+IS_JANS_DEPLOYED=janssen/deployed
 # Functions
 install_jans() {
   echo "*****   Writing properties!!   *****"

@@ -143,13 +143,16 @@ jobs:
        compose-file: "docker-jans-monolith/jans-ldap-compose.yml"
 
     - name: Jans ORM
+      if: always()
       run: |
         mvn -f jans-orm/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean install
 
     - name: Jans Auth Server LDAP
+      if: always()
       run: |
         mvn -f jans-auth-server/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} -Ddevelopment-build=${{ env.DEVELOPMENT_BUILD }} -Dcvss-score=${{ env.CVSS_SCORE }} -Dfindbugs.skip=${{ env.SKIP_FINDBUGS }} -Ddependency.check=${{ env.DEPENDENCY_CHECK }} -U -fae clean compile install
     
     - name: Jans Agama LDAP
+      if: always()
       run: |
         mvn -f jans-auth-server/agama/engine/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install

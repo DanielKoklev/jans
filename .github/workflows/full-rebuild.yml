@@ -116,7 +116,7 @@ jobs:
       SKIP_FINDBUGS: true
       DEPENDENCY_CHECK: true
       VERSION_NAME: main
-      PROFILE_NAME: jenkins-dev1.jans.io
+      PROFILE_NAME: default
     steps:
 
     - name: Checkout code

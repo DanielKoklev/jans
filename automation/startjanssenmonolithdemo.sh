@@ -50,7 +50,7 @@ rm -rf /tmp/jans || echo "/tmp/jans doesn't exist"
 git clone --filter blob:none --no-checkout https://github.com/janssenproject/jans /tmp/jans \
     && cd /tmp/jans \
     && git sparse-checkout init --cone \
-    && git sparse-checkout set docker-jans-monolith 
+    && git sparse-checkout set docker-jans-monolith \
     && git checkout main \
     && cd "$WORKING_DIRECTORY"
 

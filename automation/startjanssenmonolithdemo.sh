@@ -51,8 +51,8 @@ git clone --filter blob:none --no-checkout https://github.com/janssenproject/jan
     && cd /tmp/jans \
     && git sparse-checkout init --cone \
     && git sparse-checkout set docker-jans-monolith 
-    # && git checkout "$JANS_BUILD_COMMIT" \
-    # && cd "$WORKING_DIRECTORY"
+    && git checkout main \
+    && cd "$WORKING_DIRECTORY"
 
 # -- Parse compose and docker file
 sudo apt-get update

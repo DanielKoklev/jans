@@ -52,7 +52,7 @@ git clone --filter blob:none --no-checkout https://github.com/janssenproject/jan
     && git sparse-checkout init --cone \
     && git checkout "$JANS_BUILD_COMMIT" \
     && git sparse-checkout set docker-jans-monolith \
-    && cd "$WORKING_DIRECTORY"
+    && cd "$WORKING_DIRECTORY" \
     && ls -la /tmp/jans/docker-jans-monolith/
 
 # -- Parse compose and docker file

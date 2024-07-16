@@ -149,8 +149,7 @@ jobs:
         EXT_IP: $(curl -s ipinfo.io/ip)
         JANS_BUILD_COMMIT: ${{ github.sha }}
       run: |
-        cd automation
-        sudo chmod a+x startjanssenmonolithdemo.sh
+        sudo chmod a+x automation/startjanssenmonolithdemo.sh
         ./startjanssenmonolithdemo.sh $JANS_FQDN $JANS_PERSISTENCE $EXT_IP $JANS_BUILD_COMMIT
 
     # - name: Jans ORM

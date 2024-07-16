@@ -48,10 +48,11 @@ WORKING_DIRECTORY=$PWD
 # we are using partial-clone and sparse-checkout to get the docker-jans-monolith code
 rm -rf /tmp/jans || echo "/tmp/jans doesn't exist"
 git clone --filter blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans \
+    && cd /tmp/jans \
     && git sparse-checkout init --cone \
     && git checkout "$JANS_BUILD_COMMIT" \
     && git sparse-checkout set docker-jans-monolith \
-    && cd "$WORKING_DIRECTORY" \
+    && cd "$WORKING_DIRECTORY"
 
 # -- Parse compose and docker file
 sudo apt-get update

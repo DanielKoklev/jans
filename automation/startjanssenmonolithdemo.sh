@@ -47,13 +47,13 @@ WORKING_DIRECTORY=$PWD
 # note that as we're pulling from a monorepo (with multiple project in it)
 # we are using partial-clone and sparse-checkout to get the docker-jans-monolith code
 rm -rf /tmp/jans || echo "/tmp/jans doesn't exist"
-git clone --filter blob:none --no-checkout https://github.com/janssenproject/jans /tmp/jans \
-    && cd /tmp/jans \
-    && git sparse-checkout init --cone \
-    && git checkout "$JANS_BUILD_COMMIT" \
-    && git sparse-checkout set docker-jans-monolith \
-    && cd "$WORKING_DIRECTORY" \
-    && ls -la /tmp/jans/docker-jans-monolith/
+git clone --filter blob:none --no-checkout https://github.com/janssenproject/jans /tmp/jans
+cd /tmp/jans \
+git sparse-checkout init --cone \
+git checkout "$JANS_BUILD_COMMIT" \
+git sparse-checkout set docker-jans-monolith \
+cd "$WORKING_DIRECTORY" \
+ls -la /tmp/jans/docker-jans-monolith/
 
 # -- Parse compose and docker file
 sudo apt-get update

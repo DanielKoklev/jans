@@ -145,7 +145,7 @@ jobs:
     - name: Run Jans Monolith
       env:
         JANS_FQDN: demoexample.jans.io
-        JANS_PERSISTENCE: PGSQL
+        JANS_PERSISTENCE: MYSQL
         EXT_IP: $(curl -s ipinfo.io/ip)
         JANS_BUILD_COMMIT: main
       run: |

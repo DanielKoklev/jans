@@ -145,6 +145,7 @@ jobs:
     - name: Run Jans Monolith
       run: |
         cd automation
+        sudo chmod a+x startjanssenmonolithdemo.sh
         sudo ./startjanssenmonolithdemo.sh
 
     - name: Jans ORM

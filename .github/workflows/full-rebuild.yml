@@ -147,7 +147,7 @@ jobs:
         JANS_FQDN: demoexample.jans.io
         JANS_PERSISTENCE: LDAP
         EXT_IP: $(curl -s ipinfo.io/ip)
-        JANS_BUILD_COMMIT: migration/jenkins-pipelines
+        JANS_BUILD_COMMIT: main
       run: |
         sudo chmod a+x automation/startjanssenmonolithdemo.sh
         ./automation/startjanssenmonolithdemo.sh $JANS_FQDN $JANS_PERSISTENCE $EXT_IP $JANS_BUILD_COMMIT

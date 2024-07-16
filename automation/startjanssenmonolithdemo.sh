@@ -49,12 +49,12 @@ WORKING_DIRECTORY=$PWD
 rm -rf /tmp/jans || echo "/tmp/jans doesn't exist"
 git clone --filter blob:none --no-checkout https://github.com/janssenproject/jans /tmp/jans \
     && cd /tmp/jans \
-    && ls -la /tmp/jans/
-    # && git sparse-checkout init --cone \
-    # && git checkout "$JANS_BUILD_COMMIT" \
-    # && git sparse-checkout set docker-jans-monolith \
-    # && cd "$WORKING_DIRECTORY" \
-    # && ls -la /tmp/jans/docker-jans-monolith/
+    && git sparse-checkout init --cone \
+    && git checkout "$JANS_BUILD_COMMIT" \
+    && ls -la /tmp/jans \
+    && git sparse-checkout set docker-jans-monolith \
+    && ls -la /tmp/jans \
+    && cd "$WORKING_DIRECTORY" \
 
 # -- Parse compose and docker file
 sudo apt-get update

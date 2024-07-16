@@ -137,10 +137,15 @@ jobs:
         distribution: 'adopt'
         cache: 'maven'
 
-    - name: Jans LDAP Container
-      uses: hoverkraft-tech/compose-action@v2.0.1
-      with:
-       compose-file: "docker-jans-monolith/jans-ldap-compose.yml"
+    # - name: Jans LDAP Container
+    #   uses: hoverkraft-tech/compose-action@v2.0.1
+    #   with:
+    #    compose-file: "docker-jans-monolith/jans-ldap-compose.yml"
+
+    - name: Run Jans Monolith
+      run: |
+        cd automation
+        sudo ./startjanssenmonolithdemo.sh
 
     - name: Jans ORM
       if: always()

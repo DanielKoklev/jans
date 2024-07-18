@@ -151,7 +151,7 @@ jobs:
       run: |
         export ip=$(ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
         sudo chmod a+x automation/startjanssenmonolithdemo.sh
-        sudo RUN_TESTS=true bash ./automation/startjanssenmonolithdemo.sh "demoexample.jans.io" "MYSQL" "$ip" "main"
+        sudo RUN_TESTS=true bash ./automation/startjanssenmonolithdemo.sh "demoexample.jans.io" "MYSQL" "$ip" "${{ github.sha }}"
 
     # - name: Jans ORM
     #   if: always()

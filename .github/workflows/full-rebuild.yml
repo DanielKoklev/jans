@@ -102,55 +102,55 @@ jobs:
   #         fi
   #       done
 
-  # run-ldap-tests:
-  #   runs-on: ubuntu-20.04
-  #   env:
-  #     MAVEN_SKIP_TESTS: false
-  #     PERSISTENCE_DB: ldap
-  #     CONTAINER_NAME_SPANNER: ubuntu20-spanner
-  #     CONTAINER_NAME_CB: ubuntu20-couchbase
-  #     CONTAINER_NAME_LDAP: ubuntu20-ldap
-  #     CONTAINER_NAME_MYSQL: ubuntu20-mysql
-  #     CONTAINER_NAME_POSTGRESQL: ubuntu20-postgresql
-  #     DEVELOPMENT_BUILD: true
-  #     SKIP_FINDBUGS: true
-  #     DEPENDENCY_CHECK: true
-  #     VERSION_NAME: main
-  #     PROFILE_NAME: default
-  #   steps:
+  run-ldap-tests:
+    runs-on: ubuntu-20.04
+    env:
+      MAVEN_SKIP_TESTS: false
+      PERSISTENCE_DB: ldap
+      CONTAINER_NAME_SPANNER: ubuntu20-spanner
+      CONTAINER_NAME_CB: ubuntu20-couchbase
+      CONTAINER_NAME_LDAP: ubuntu20-ldap
+      CONTAINER_NAME_MYSQL: ubuntu20-mysql
+      CONTAINER_NAME_POSTGRESQL: ubuntu20-postgresql
+      DEVELOPMENT_BUILD: true
+      SKIP_FINDBUGS: true
+      DEPENDENCY_CHECK: true
+      VERSION_NAME: main
+      PROFILE_NAME: default
+    steps:
 
-  #   - name: Checkout code
-  #     uses: actions/checkout@v4
-  #     with:
-  #       ref: ${{ github.event.inputs.branch }}
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.inputs.branch }}
 
-  #   - name: Set up Java 17
-  #     uses: actions/setup-java@v4
-  #     with:
-  #       java-version: '17'
-  #       distribution: 'adopt'
+    - name: Set up Java 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'adopt'
 
-  #   - name: Set up Maven
-  #     uses: actions/setup-java@v4
-  #     with:
-  #       java-version: '17'
-  #       distribution: 'adopt'
-  #       cache: 'maven'
+    - name: Set up Maven
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+        cache: 'maven'
 
     # - name: Jans LDAP Container
     #   uses: hoverkraft-tech/compose-action@v2.0.1
     #   with:
     #    compose-file: "docker-jans-monolith/jans-ldap-compose.yml"
 
-    # - name: Run Jans Monolith
-    #   env:
-    #     JANS_FQDN: demoexample.jans.io
-    #     JANS_PERSISTENCE: MYSQL
-    #     EXT_IP: $(curl -s ipinfo.io/ip)
-    #     JANS_BUILD_COMMIT: main
-    #   run: |
-    #     sudo chmod a+x automation/startjanssenmonolithdemo.sh
-    #     ./automation/startjanssenmonolithdemo.sh ${{ env.JANS_FQDN }} ${{ env.JANS_PERSISTENCE }} ${{ env.EXT_IP }} ${{ env.JANS_BUILD_COMMIT }}
+    - name: Run Jans Monolith
+      env:
+        JANS_FQDN: demoexample.jans.io
+        JANS_PERSISTENCE: MYSQL
+        EXT_IP: $(curl -s ipinfo.io/ip)
+        JANS_BUILD_COMMIT: main
+      run: |
+        sudo chmod a+x automation/startjanssenmonolithdemo.sh
+        ./automation/startjanssenmonolithdemo.sh ${{ env.JANS_FQDN }} ${{ env.JANS_PERSISTENCE }} ${{ env.EXT_IP }} ${{ env.JANS_BUILD_COMMIT }}
 
     # - name: Jans ORM
     #   if: always()

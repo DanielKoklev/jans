@@ -67,7 +67,6 @@ install_jans() {
   echo "Executing https://raw.githubusercontent.com/JanssenProject/jans/${JANS_SOURCE_VERSION}/jans-linux-setup/jans_setup/install.py > install.py"
   curl https://raw.githubusercontent.com/JanssenProject/jans/"${JANS_SOURCE_VERSION}"/jans-linux-setup/jans_setup/install.py > install.py
   echo "Executing python3 install.py -yes --args=-f setup.properties -n"
-  pwd
   python3 install.py -yes --args="-f setup.properties -n"
   echo "*****   Setup script completed!!    *****"
 

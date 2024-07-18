@@ -112,7 +112,7 @@ docker exec docker-jans-monolith-jans-1 curl -f -k https://localhost/.well-known
 mkdir -p /tmp/reports || echo "reports folder exists"
 while ! docker exec docker-jans-monolith-jans-1 test -f "/tmp/httpd.crt"; do
   echo "Waiting for the container to run java test preparations"
-  docker log docker-jans-monolith-jans-1
+  docker logs docker-jans-monolith-jans-1
   sleep 5
 done
 echo -e "Running build.. \n"

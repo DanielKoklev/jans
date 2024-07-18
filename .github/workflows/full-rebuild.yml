@@ -150,7 +150,7 @@ jobs:
         JANS_BUILD_COMMIT: main
       run: |
         sudo chmod a+x automation/startjanssenmonolithdemo.sh
-        ./automation/startjanssenmonolithdemo.sh ${{ env.JANS_FQDN }} ${{ env.JANS_PERSISTENCE }} ${{ env.EXT_IP }} ${{ env.JANS_BUILD_COMMIT }}
+        sudo ./automation/startjanssenmonolithdemo.sh ${{ env.JANS_FQDN }} ${{ env.JANS_PERSISTENCE }} ${{ env.EXT_IP }} ${{ env.JANS_BUILD_COMMIT }}
 
     # - name: Jans ORM
     #   if: always()

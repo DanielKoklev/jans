@@ -132,6 +132,7 @@ while [ $SECONDS -lt $end ]; do
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   if docker exec docker-jans-monolith-jans-1 test -f "/tmp/httpd.crt"; then
     break
   fi
@@ -143,6 +144,9 @@ while [ $SECONDS -lt $end ]; do
 >>>>>>> 01d832e855 (Working on pipeline)
 =======
 >>>>>>> d8dc44582b (Working on pipeline)
+=======
+  docker logs docker-jans-monolith-jans-1
+>>>>>>> 01d832e855 (Working on pipeline)
   sleep 5
 >>>>>>> f0beb0167c (Working on pipeline)
 done

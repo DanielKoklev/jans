@@ -130,12 +130,16 @@ end=$((SECONDS+180))
 while [ $SECONDS -lt $end ]; do
   echo "Waiting for the container to run java test preparations"
 <<<<<<< HEAD
+<<<<<<< HEAD
   if docker exec docker-jans-monolith-jans-1 test -f "/tmp/httpd.crt"; then
     break
   fi
   sleep 10
 =======
   docker log docker-jans-monolith-jans-1
+=======
+  docker logs docker-jans-monolith-jans-1
+>>>>>>> 01d832e855 (Working on pipeline)
   sleep 5
 >>>>>>> f0beb0167c (Working on pipeline)
 done

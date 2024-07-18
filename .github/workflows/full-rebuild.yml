@@ -150,7 +150,7 @@ jobs:
         JANS_BUILD_COMMIT: main
       run: |
         sudo chmod a+x automation/startjanssenmonolithdemo.sh
-        sudo RUN_TESTS=true bash ./automation/startjanssenmonolithdemo.sh "demoexample.jans.io" "MYSQL" "${{ EXT_IP }}" "main"
+        sudo RUN_TESTS=true bash ./automation/startjanssenmonolithdemo.sh "demoexample.jans.io" "MYSQL" "${EXT_IP}" "main"
 
     # - name: Jans ORM
     #   if: always()

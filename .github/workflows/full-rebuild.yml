@@ -146,9 +146,10 @@ jobs:
       env:
         JANS_FQDN: demoexample.jans.io
         JANS_PERSISTENCE: MYSQL
-        EXT_IP: $(curl -s ipinfo.io/ip)
+        EXT_IP: $(ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
         JANS_BUILD_COMMIT: main
       run: |
+        echo $EXT_IP
         sudo chmod a+x automation/startjanssenmonolithdemo.sh
         sudo ./automation/startjanssenmonolithdemo.sh ${{ env.JANS_FQDN }} ${{ env.JANS_PERSISTENCE }} ${{ env.EXT_IP }} ${{ env.JANS_BUILD_COMMIT }}
 

@@ -129,26 +129,10 @@ mkdir -p /tmp/reports || echo "reports folder exists"
 end=$((SECONDS+180))
 while [ $SECONDS -lt $end ]; do
   echo "Waiting for the container to run java test preparations"
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   if docker exec docker-jans-monolith-jans-1 test -f "/tmp/httpd.crt"; then
     break
   fi
   sleep 10
-=======
-  docker log docker-jans-monolith-jans-1
-=======
-  docker logs docker-jans-monolith-jans-1
->>>>>>> 01d832e855 (Working on pipeline)
-=======
->>>>>>> d8dc44582b (Working on pipeline)
-=======
-  docker logs docker-jans-monolith-jans-1
->>>>>>> 01d832e855 (Working on pipeline)
-  sleep 5
->>>>>>> f0beb0167c (Working on pipeline)
 done
 echo -e "Running build.. \n"
 docker exec -w /tmp/jans/jans-auth-server docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true -fae clean compile install

@@ -126,6 +126,7 @@ jobs:
           - "PGSQL"
           - "COUCHBASE"
           - "SPANNER"
+      fail-fast: false
     steps:
 
     - name: Checkout code

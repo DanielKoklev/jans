@@ -121,11 +121,11 @@ jobs:
       max-parallel: 1
       matrix:
         persistence:
-          # - "LDAP"
+          - "LDAP"
           - "MYSQL"
-          # - "PGSQL"
-          # - "COUCHBASE"
-          # - "SPANNER"
+          - "PGSQL"
+          - "COUCHBASE"
+          - "SPANNER"
     steps:
 
     - name: Checkout code

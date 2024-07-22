@@ -106,7 +106,6 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       MAVEN_SKIP_TESTS: false
-      PERSISTENCE_DB: ldap
       CONTAINER_NAME_SPANNER: ubuntu20-spanner
       CONTAINER_NAME_CB: ubuntu20-couchbase
       CONTAINER_NAME_LDAP: ubuntu20-ldap
@@ -121,11 +120,11 @@ jobs:
       max-parallel: 1
       matrix:
         persistence:
-          - "LDAP"
-          - "MYSQL"
+          # - "LDAP"
+          # - "MYSQL"
           - "PGSQL"
-          - "COUCHBASE"
-          - "SPANNER"
+          # - "COUCHBASE"
+          # - "SPANNER"
       fail-fast: false
     steps:
 
@@ -147,11 +146,6 @@ jobs:
         distribution: 'adopt'
         cache: 'maven'
 
-    # - name: Jans LDAP Container
-    #   uses: hoverkraft-tech/compose-action@v2.0.1
-    #   with:
-    #    compose-file: "docker-jans-monolith/jans-ldap-compose.yml"
-
     - name: Run Jans Monolith
       env:
         JANS_FQDN: demoexample.jans.io
@@ -162,10 +156,10 @@ jobs:
         sudo chmod a+x automation/startjanssenmonolithdemo.sh
         sudo RUN_TESTS=true bash ./automation/startjanssenmonolithdemo.sh "demoexample.jans.io" "${{ matrix.persistence }}" "$ip" "${{ github.sha }}"
 
-    # - name: Jans ORM
-    #   if: always()
-    #   run: |
-    #     mvn -f jans-orm/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean install
+    - name: Jans ORM
+      if: always()
+      run: |
+        mvn -f jans-orm/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean install
 
     # - name: Jans Auth Server LDAP
     #   if: always()

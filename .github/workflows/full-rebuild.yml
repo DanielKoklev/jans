@@ -102,7 +102,7 @@ jobs:
   #         fi
   #       done
 
-  run-ldap-tests:
+  run-tests:
     runs-on: ubuntu-20.04
     env:
       MAVEN_SKIP_TESTS: false

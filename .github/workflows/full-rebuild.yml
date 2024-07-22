@@ -122,8 +122,8 @@ jobs:
       matrix:
         persistence:
           # - "LDAP"
-          # - "MYSQL"
-          - "PGSQL"
+          - "MYSQL"
+          # - "PGSQL"
           # - "COUCHBASE"
           # - "SPANNER"
     steps:

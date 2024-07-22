@@ -106,7 +106,7 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       MAVEN_SKIP_TESTS: false
-      PERSISTENCE_DB: mysql
+      PERSISTENCE_DB: ldap
       CONTAINER_NAME_SPANNER: ubuntu20-spanner
       CONTAINER_NAME_CB: ubuntu20-couchbase
       CONTAINER_NAME_LDAP: ubuntu20-ldap
@@ -117,6 +117,15 @@ jobs:
       DEPENDENCY_CHECK: true
       VERSION_NAME: main
       PROFILE_NAME: default
+    strategy:
+      max-parallel: 1
+      matrix:
+        persistence:
+          - "ldap"
+          - "mysql"
+          - "postgresql"
+          - "couchbase"
+          - "spanner"
     steps:
 
     - name: Checkout code
@@ -145,13 +154,12 @@ jobs:
     - name: Run Jans Monolith
       env:
         JANS_FQDN: demoexample.jans.io
-        JANS_PERSISTENCE: MYSQL
         EXT_IP: $(ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
         JANS_BUILD_COMMIT: main
       run: |
         export ip=$(ifconfig eth0 | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
         sudo chmod a+x automation/startjanssenmonolithdemo.sh
-        sudo RUN_TESTS=true bash ./automation/startjanssenmonolithdemo.sh "demoexample.jans.io" "MYSQL" "$ip" "${{ github.sha }}"
+        sudo RUN_TESTS=true bash ./automation/startjanssenmonolithdemo.sh "demoexample.jans.io" "${{ matrix.persistence }}" "$ip" "${{ github.sha }}"
 
     # - name: Jans ORM
     #   if: always()

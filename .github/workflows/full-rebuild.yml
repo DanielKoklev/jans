@@ -3,12 +3,12 @@ name: Jans Full Build
 on:
   push:
     branches:
-      - migration/jenkins-pipelines
+      - main
   schedule:
     - cron: '0 8 * * *'
   pull_request:
     branches:
-      - migration/jenkins-pipelines
+      - main
   workflow_dispatch:
 
 

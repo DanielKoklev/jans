@@ -162,11 +162,6 @@ docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/client/target/s
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/agama/model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-agama-model-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/test-model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-test-model-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-model-testng-results.xml
-docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-bom/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-bom-testng-results.xml
-docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-casa/app/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-casa-app-testng-results.xml
-docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-casa/config/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-casa-config-testng-results.xml
-docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-config-api/server/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-config-api-server-testng-results.xml
-docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-config-api/common/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-config-api-common-testng-results.xml
 
 EOF
 if [[ "$RUN_TESTS" == "true" ]]; then

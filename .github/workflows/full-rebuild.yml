@@ -156,6 +156,19 @@ jobs:
         sudo chmod a+x automation/startjanssenmonolithdemo.sh
         sudo RUN_TESTS=true bash ./automation/startjanssenmonolithdemo.sh "demoexample.jans.io" "${{ matrix.persistence }}" "$ip" "${{ github.sha }}"
 
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.persistence }}-test-results
+        path: /tmp/reports
+
+    - name: Publish test results
+      uses: dorny/test-reporter@v1
+      with:
+        name: Test Results
+        path: /tmp/reports/*.xml
+        reporter: testng
+
     - name: Jans ORM
       if: always()
       run: |

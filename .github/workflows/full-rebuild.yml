@@ -170,8 +170,7 @@ jobs:
       uses: dorny/test-reporter@v1
       with:
         artifact: ${{ matrix.persistence }}-test-results
-        name: Test Results
-        path: /tmp/reports/*.xml
+        name: ${{ matrix.persistence }} Test Results
         reporter: java-junit
 
     - name: Jans ORM

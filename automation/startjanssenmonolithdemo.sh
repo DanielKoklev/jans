@@ -158,8 +158,8 @@ docker exec -w /tmp/jans/jans-keycloak-link docker-jans-monolith-jans-1 mvn -Dcf
 docker exec -w /tmp/jans/jans-keycloak-integration docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 docker exec -w /tmp/jans/jans-auth-server docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 echo -e "copying reports.. \n"
-docker exec -w /tmp/jans/jans-bom docker-jans-monolith-jans-1 ls -lha
-docker exec -w /tmp/jans/jans-bom docker-jans-monolith-jans-1 ls -lha target
+docker exec docker-jans-monolith-jans-1 ls -lha
+docker exec docker-jans-monolith-jans-1 ls -lha target
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/client/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-client-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/agama/model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-agama-model-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/test-model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-test-model-testng-results.xml

@@ -160,19 +160,18 @@ jobs:
       run: |
         ls /tmp/reports/
 
+    - name: Publish test results
+      uses: dorny/test-reporter@v1
+      with:
+        name: ${{ matrix.persistence }} Test Results
+        path: '.xml'
+        reporter: java-junit
+
     - name: Upload test results
       uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.persistence }}-test-results
         path: /tmp/reports/${{ matrix.persistence }}-*.xml
-
-    - name: Publish test results
-      uses: dorny/test-reporter@v1
-      with:
-        artifact: ${{ matrix.persistence }}-test-results
-        name: ${{ matrix.persistence }} Test Results
-        path: '.xml'
-        reporter: java-junit
 
     - name: Jans ORM
       if: always()

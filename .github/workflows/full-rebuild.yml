@@ -171,6 +171,7 @@ jobs:
       with:
         artifact: ${{ matrix.persistence }}-test-results
         name: ${{ matrix.persistence }} Test Results
+        path: /tmp/reports
         reporter: java-junit
 
     - name: Jans ORM

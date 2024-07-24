@@ -170,7 +170,6 @@ jobs:
       uses: dorny/test-reporter@v1
       if: always()
       with:
-        name: ${{ matrix.persistence }} Test Results
         path: "/tmp/reports/*.xml"
         reporter: java-junit
 

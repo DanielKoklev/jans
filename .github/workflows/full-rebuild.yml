@@ -166,25 +166,23 @@ jobs:
         name: ${{ matrix.persistence }}-test-results
         path: /tmp/reports
 
-    - name: Download test results artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: ${{ matrix.persistence }}-test-results
-        path: /tmp/artifacts/
+    # - name: Download test results artifact
+    #   uses: actions/download-artifact@v4
+    #   with:
+    #     name: ${{ matrix.persistence }}-test-results
+    #     path: /tmp/artifacts/
 
-    - name: List downloaded files
-      run: |
-        echo "Files in the downloaded artifact directory:"
-        ls -al /tmp/artifacts/
+    # - name: List downloaded files
+    #   run: |
+    #     echo "Files in the downloaded artifact directory:"
+    #     ls -al /tmp/artifacts/
 
-    - name: Publish test results
-      uses: dorny/test-reporter@v1
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
       if: always()
       with:
-        name: ${{ matrix.persistence }} Test Results
-        path: /tmp/artifacts/PGSQL-jans-auth-model-testng-results.xml
-        reporter: java-junit
-
+        files: |
+          /tmp/reports/*.xml
     # - name: Jans ORM
     #   if: always()
     #   run: |

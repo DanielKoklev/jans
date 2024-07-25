@@ -182,7 +182,7 @@ jobs:
       if: always()
       with:
         files: |
-          test-results/**/*.xml
+          **/*.xml
     # - name: Jans ORM
     #   if: always()
     #   run: |

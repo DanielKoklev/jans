@@ -177,13 +177,13 @@ jobs:
         echo "Files in the downloaded artifact directory:"
         ls -al /tmp/artifacts/
 
-    # - name: Publish test results
-    #   uses: dorny/test-reporter@v1
-    #   if: always()
-    #   with:
-    #     name: ${{ matrix.persistence }} Test Results
-    #     path: '*.xml'
-    #     reporter: java-junit
+    - name: Publish test results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: ${{ matrix.persistence }} Test Results
+        path: /tmp/artifacts/*.xml
+        reporter: java-junit
 
     # - name: Jans ORM
     #   if: always()

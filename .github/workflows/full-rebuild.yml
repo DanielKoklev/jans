@@ -170,7 +170,8 @@ jobs:
       uses: dorny/test-reporter@v1
       if: always()
       with:
-        path: "/tmp/reports/*.xml"
+        name: ${{ matrix.persistence }} Test Results
+        path: /tmp/reports/PGSQL-jans-auth-model-testng-results.xml
         reporter: java-junit
 
     - name: Jans ORM

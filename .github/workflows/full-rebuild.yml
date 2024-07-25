@@ -166,18 +166,29 @@ jobs:
         name: ${{ matrix.persistence }}-test-results
         path: /tmp/reports
 
-    - name: Publish test results
-      uses: dorny/test-reporter@v1
-      if: always()
+    - name: Download test results artifact
+      uses: actions/download-artifact@v2
       with:
-        name: ${{ matrix.persistence }} Test Results
-        path: /tmp/reports/PGSQL-jans-auth-model-testng-results.xml
-        reporter: java-junit
+        name: ${{ matrix.persistence }}-test-results
+        path: /tmp/artifacts/
 
-    - name: Jans ORM
-      if: always()
+    - name: List downloaded files
       run: |
-        mvn -f jans-orm/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean install
+        echo "Files in the downloaded artifact directory:"
+        ls -al /tmp/artifacts/
+
+    # - name: Publish test results
+    #   uses: dorny/test-reporter@v1
+    #   if: always()
+    #   with:
+    #     name: ${{ matrix.persistence }} Test Results
+    #     path: '*.xml'
+    #     reporter: java-junit
+
+    # - name: Jans ORM
+    #   if: always()
+    #   run: |
+    #     mvn -f jans-orm/pom.xml -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean install
 
     # - name: Jans Auth Server
     #   if: always()

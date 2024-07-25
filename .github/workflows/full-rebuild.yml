@@ -167,7 +167,7 @@ jobs:
         path: /tmp/reports
 
     - name: Download test results artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: ${{ matrix.persistence }}-test-results
         path: /tmp/artifacts/

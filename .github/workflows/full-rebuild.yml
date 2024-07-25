@@ -182,7 +182,7 @@ jobs:
       if: always()
       with:
         files: |
-          /tmp/**/*.xml
+          **/${{ matrix.persistence }}-*.xml
     # - name: Jans ORM
     #   if: always()
     #   run: |

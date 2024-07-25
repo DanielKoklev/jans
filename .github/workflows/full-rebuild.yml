@@ -182,7 +182,7 @@ jobs:
       if: always()
       with:
         name: ${{ matrix.persistence }} Test Results
-        path: /tmp/artifacts/*.xml
+        path: /tmp/artifacts/PGSQL-jans-auth-model-testng-results.xml
         reporter: java-junit
 
     # - name: Jans ORM

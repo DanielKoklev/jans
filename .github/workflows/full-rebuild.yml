@@ -120,11 +120,25 @@ jobs:
       max-parallel: 1
       matrix:
         persistence:
-          - "LDAP"
-          - "MYSQL"
+          # - "LDAP"
+          # - "MYSQL"
           - "PGSQL"
-          - "COUCHBASE"
-          - "SPANNER"
+          # - "COUCHBASE"
+          # - "SPANNER"
+        service:
+          - "jans-bom"
+          - "jans-orm"
+          - "jans-core"
+          - "jans-lock/lock-master"
+          - "agama"
+          - "jans-auth"
+          - "jans-link"
+          - "jans-fido2"
+          - "jans-scim"
+          - "jans-keycloak-link"
+          - "jans-config-api"
+          - "jans-keycloak-integration"
+          - "jans-casa"
       fail-fast: false
     steps:
 

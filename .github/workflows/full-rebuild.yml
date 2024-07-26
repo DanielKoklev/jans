@@ -179,8 +179,9 @@ jobs:
         pwd
 
     - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action/linux@v2
+      uses: EnricoMi/publish-unit-test-result-action@v2
       if: always()
       with:
         files: |
-          '${{ matrix.persistence }}-test-results-*.xml'
+          '${{ matrix.persistence }}-*.xml'
+          '${{ matrix.persistence }}-/**/*.xml'

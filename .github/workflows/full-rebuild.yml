@@ -120,11 +120,11 @@ jobs:
       max-parallel: 1
       matrix:
         persistence:
-          # - "LDAP"
-          # - "MYSQL"
+          - "LDAP"
+          - "MYSQL"
           - "PGSQL"
-          # - "COUCHBASE"
-          # - "SPANNER"
+          - "COUCHBASE"
+          - "SPANNER"
       fail-fast: false
     steps:
 

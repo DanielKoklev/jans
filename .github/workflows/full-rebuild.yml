@@ -166,6 +166,14 @@ jobs:
         name: ${{ matrix.persistence }}-test-results
         path: /tmp/reports
 
+    - uses: dorny/test-reporter@31a54ee7ebcacc03a09ea97a7e5465a47b84aea5 # v1
+      continue-on-error: true
+      id: go
+      with:
+        name: ${{ matrix.persistence }} Tests
+        path: '${{ matrix.persistence }}-test-results'
+        reporter: java-junit
+
     - name: Download Test Results Artifact
       uses: actions/download-artifact@v4
       with:

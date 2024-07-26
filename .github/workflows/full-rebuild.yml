@@ -170,32 +170,67 @@ jobs:
         sudo chmod a+x automation/startjanssenmonolithdemo.sh
         sudo RUN_TESTS=true bash ./automation/startjanssenmonolithdemo.sh "demoexample.jans.io" "${{ matrix.persistence }}" "$ip" "${{ github.sha }}"
 
-    - name: List Reports
-      run: |
-        ls /tmp/reports/
+    # - name: List Reports
+    #   run: |
+    #     ls /tmp/reports/
+
+    # - name: Upload Test Results
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: ${{ matrix.persistence }}-test-results
+    #     path: /tmp/reports
+
+    # - name: Download Test Results Artifact
+    #   uses: actions/download-artifact@v4
+    #   with:
+    #     name: ${{ matrix.persistence }}-test-results
+    #     path: ${{ matrix.persistence }}-test-results
+
+    # - name: List Downloaded Files
+    #   run: |
+    #     echo "Files in the downloaded artifact directory:"
+    #     ls -al ${{ matrix.persistence }}-test-results
+    #     pwd
+
+    # - name: Publish Test Results
+    #   uses: EnricoMi/publish-unit-test-result-action@v2
+    #   if: always()
+    #   with:
+    #     files: |
+    #       '${{ matrix.persistence }}-*/**/*.xml'
+    #       '${{ matrix.persistence }}-*/*.xml'
+    - name: Publish Test Results
+      continue-on-error: true
+      uses: EnricoMi/publish-unit-test-result-action@e780361cd1fc1b1a170624547b3ffda64787d365 # v2.12.0
+      with:
+        large_files: true
+        check_name: Java ${{ matrix.persistence }} Tests
+        report_individual_runs: "true"
+        files: |
+          /${{ matrix.persistence }}-reports/*.xml
 
     - name: Upload Test Results
-      uses: actions/upload-artifact@v4
+      continue-on-error: true
+      if: always()
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: ${{ matrix.persistence }}-test-results
-        path: /tmp/reports
+        name: java-${{ matrix.persistence }}-test-results
+        path: "/${{ matrix.persistence }}-reports/*.xml"
 
-    - name: Download Test Results Artifact
-      uses: actions/download-artifact@v4
+    - uses: dorny/test-reporter@31a54ee7ebcacc03a09ea97a7e5465a47b84aea5 # v1
+      continue-on-error: true
       with:
-        name: ${{ matrix.persistence }}-test-results
-        path: ${{ matrix.persistence }}-test-results
+        name: Java ${{ matrix.persistence-backends }} Tests
+        path: '${{ matrix.persistence-backends }}report.xml'
+        reporter: java-junit
 
-    - name: List Downloaded Files
-      run: |
-        echo "Files in the downloaded artifact directory:"
-        ls -al ${{ matrix.persistence }}-test-results
-        pwd
+    - name: Download Artifacts
+      uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 # v4.1.1
+      with:
+        name: java-${{ matrix.persistence }}-test-results
+        path: java-${{ matrix.persistence }}-test-results
 
     - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v2
-      if: always()
+      uses: EnricoMi/publish-unit-test-result-action/composite@e780361cd1fc1b1a170624547b3ffda64787d365 # v2.12.0
       with:
-        files: |
-          '${{ matrix.persistence }}-*/**/*.xml'
-          '${{ matrix.persistence }}-*/*.xml'
+        files: "java-${{ matrix.persistence}}-test-results/**/*.xml"

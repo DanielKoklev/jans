@@ -199,3 +199,4 @@ jobs:
         files: |
           '${{ matrix.persistence }}-*/**/*.xml'
           '${{ matrix.persistence }}-*/*.xml'
+          '${{ matrix.persistence }}*.xml'

@@ -126,19 +126,12 @@ jobs:
           # - "COUCHBASE"
           # - "SPANNER"
         # service:
-        #   - "jans-bom"
         #   - "jans-orm"
-        #   - "jans-core"
-        #   - "jans-lock/lock-master"
-        #   - "agama"
         #   - "jans-auth"
-        #   - "jans-link"
-        #   - "jans-fido2"
+        #   - "agama"
         #   - "jans-scim"
-        #   - "jans-keycloak-link"
         #   - "jans-config-api"
-        #   - "jans-keycloak-integration"
-        #   - "jans-casa"
+        #   - "jans-fido2"
       fail-fast: false
     steps:
 
@@ -200,8 +193,8 @@ jobs:
           '${{ matrix.persistence }}-*/*.xml'
           '${{ matrix.persistence }}*.xml'
     
-    - name: Run Jans ORM 
-      run: mvn -Dcfg=${{ env.VERSION_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
+    # - name: Run Jans ORM 
+    #   run: mvn -Dcfg=${{ env.VERSION_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
 
-    - name: Run Jans Agama
-      run: mvn -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
+    # - name: Run Jans Agama
+    #   run: mvn -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install

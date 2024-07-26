@@ -172,7 +172,7 @@ jobs:
         name: ${{ matrix.persistence }}-test-results
         path: ${{ matrix.persistence }}-test-results
 
-    - name: List downloaded files
+    - name: List Downloaded Files
       run: |
         echo "Files in the downloaded artifact directory:"
         ls -al ${{ matrix.persistence }}-test-results
@@ -182,7 +182,7 @@ jobs:
       if: always()
       with:
         files: |
-          '${{ matrix.persistence }}-test-results/**/*.xml'
+          '${{ matrix.persistence }}-test-results-*.xml'
     # - name: Jans ORM
     #   if: always()
     #   run: |

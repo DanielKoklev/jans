@@ -166,11 +166,11 @@ jobs:
         name: ${{ matrix.persistence }}-test-results
         path: /tmp/reports
 
-    # - name: Download test results artifact
-    #   uses: actions/download-artifact@v4
-    #   with:
-    #     name: ${{ matrix.persistence }}-test-results
-    #     path: /tmp/artifacts/
+    - name: Download test results artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ matrix.persistence }}-test-results
+        path: ${{ matrix.persistence }}-test-results
 
     # - name: List downloaded files
     #   run: |
@@ -182,7 +182,7 @@ jobs:
       if: always()
       with:
         files: |
-          **/${{ matrix.persistence }}-*.xml
+          '${{ matrix.persistence }}-test-results/**/*.xml'
     # - name: Jans ORM
     #   if: always()
     #   run: |

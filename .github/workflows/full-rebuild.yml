@@ -171,6 +171,19 @@ jobs:
         name: ${{ matrix.persistence }}-test-results
         path: /tmp/reports
 
+    - name: Copy Test Results
+      if: always()
+      run: |
+        cp -Lpr /tmp/reports test-results
+      shell: bash
+
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        files: |
+            test-results/**/*.xml
+
     - name: Download Test Results Artifact
       uses: actions/download-artifact@v4
       with:

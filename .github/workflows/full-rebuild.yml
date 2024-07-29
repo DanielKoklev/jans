@@ -188,9 +188,9 @@ jobs:
       if: always()
       with:
         files: |
-          '${{ matrix.persistence }}-test-results/*.xml'
-          '${{ matrix.persistence }}-test-results/**/*.xml'
-          '${{ matrix.persistence }}-jans-auth*/*.xml'
+          ${{ matrix.persistence }}-test-results/*.xml
+          ${{ matrix.persistence }}-test-results/**/*.xml
+          ${{ matrix.persistence }}-jans-auth*/*.xml
     
     # - name: Run Jans ORM 
     #   run: mvn -Dcfg=${{ env.VERSION_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install

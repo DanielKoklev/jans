@@ -103,6 +103,11 @@ jobs:
   #       done
 
   run-tests:
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
     runs-on: ubuntu-20.04
     env:
       MAVEN_SKIP_TESTS: false
@@ -192,6 +197,7 @@ jobs:
           '${{ matrix.persistence }}-*/**/*.xml'
           '${{ matrix.persistence }}-*/*.xml'
           '${{ matrix.persistence }}*.xml'
+          'test-results/**/*.xml'
     
     # - name: Run Jans ORM 
     #   run: mvn -Dcfg=${{ env.VERSION_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install

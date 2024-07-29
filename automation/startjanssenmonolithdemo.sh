@@ -149,6 +149,7 @@ docker exec -w /tmp/jans/jans-scim docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_
 docker exec -w /tmp/jans/config-api docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 docker exec -w /tmp/jans/jans-fido2 docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 echo -e "copying reports.. \n"
+docker exec docker-jans-monolith-jans-1 ls /tmp/jans/
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/client/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-client-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/agama/model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-agama-model-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/test-model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-test-model-testng-results.xml

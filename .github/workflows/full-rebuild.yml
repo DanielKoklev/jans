@@ -178,26 +178,6 @@ jobs:
 
     - name: Publish Test Report Surefire
       uses: scacap/action-surefire-report@v1
-    # - name: Download Test Results Artifact
-    #   uses: actions/download-artifact@v4
-    #   with:
-    #     name: ${{ matrix.persistence }}-test-results
-    #     path: ${{ matrix.persistence }}-test-results
-
-    # - name: List Downloaded Files
-    #   run: |
-    #     echo "Files in the downloaded artifact directory:"
-    #     ls -al ${{ matrix.persistence }}-test-results
-    #     pwd
-
-    # - name: Publish Test Results
-    #   uses: EnricoMi/publish-unit-test-result-action@v2
-    #   if: always()
-    #   with:
-    #     files: |
-    #       ${{ matrix.persistence }}-test-results/*.xml
-    #       ${{ matrix.persistence }}-test-results/**/*.xml
-    #       ${{ matrix.persistence }}-jans-auth*/*.xml
     
     # - name: Run Jans ORM 
     #   run: mvn -Dcfg=${{ env.VERSION_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install

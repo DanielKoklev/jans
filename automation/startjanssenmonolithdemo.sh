@@ -135,19 +135,19 @@ while [ $SECONDS -lt $end ]; do
   sleep 10
 done
 echo -e "Running build.. \n"
-docker exec -w /tmp/jans/jans-auth-server docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true -fae clean compile install
 docker exec -w /tmp/jans/jans-orm docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true -fae clean compile install
-docker exec -w /tmp/jans/jans-fido2 docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true -fae clean compile install
-docker exec -w /tmp/jans/jans-scim docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true -fae clean compile install
+docker exec -w /tmp/jans/jans-auth-server docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true -fae clean compile install
 docker exec -w /tmp/jans/agama docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true -fae clean compile install
+docker exec -w /tmp/jans/jans-scim docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true -fae clean compile install
 docker exec -w /tmp/jans/config-api docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true -fae clean compile install
+docker exec -w /tmp/jans/jans-fido2 docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true -fae clean compile install
 echo -e "Running tests.. \n"
-docker exec -w /tmp/jans/jans-auth-server docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 docker exec -w /tmp/jans/jans-orm docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
-docker exec -w /tmp/jans/jans-fido2 docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
-docker exec -w /tmp/jans/jans-scim docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
+docker exec -w /tmp/jans/jans-auth-server docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 docker exec -w /tmp/jans/agama docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
+docker exec -w /tmp/jans/jans-scim docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 docker exec -w /tmp/jans/config-api docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
+docker exec -w /tmp/jans/jans-fido2 docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 echo -e "copying reports.. \n"
 docker exec docker-jans-monolith-jans-1 ls -lha
 docker exec docker-jans-monolith-jans-1 ls -lha /tmp/jans/

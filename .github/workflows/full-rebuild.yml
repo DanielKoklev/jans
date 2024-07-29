@@ -171,12 +171,12 @@ jobs:
         name: ${{ matrix.persistence }}-test-results
         path: /tmp/reports
 
-    - name: Publish Test Report
-      uses: starburstdata/action-testng-report@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}
-      with:
-          report_paths: /tmp/reports/*.xml
+    # - name: Publish Test Report
+    #   uses: starburstdata/action-testng-report@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}
+    #   with:
+    #       report_paths: /tmp/reports/*.xml
 
     - name: Publish Test Report Surefire
       uses: scacap/action-surefire-report@v1

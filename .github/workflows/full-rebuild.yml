@@ -178,6 +178,7 @@ jobs:
       with:
           report_paths: /tmp/reports/*.xml
           GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}
+          fail_if_no_tests: false
 
     - name: Publish Test Report Surefire
       uses: scacap/action-surefire-report@v1
@@ -186,6 +187,7 @@ jobs:
       with:
           report_paths: /tmp/reports/*.xml
           GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}
+          fail_if_empty: false
     
     # - name: Run Jans ORM 
     #   run: mvn -Dcfg=${{ env.VERSION_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install

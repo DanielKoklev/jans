@@ -177,7 +177,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}
       with:
           report_paths: /tmp/reports/*.xml
-          github_token: ${{ env.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
           fail_if_empty: false
 
     

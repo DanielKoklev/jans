@@ -178,7 +178,7 @@ jobs:
       with:
           report_paths: /tmp/reports/*.xml
           github_token: ${{ env.GITHUB_TOKEN }}
-          fail_if_no_tests: false
+          fail_if_empty: false
 
     
     # - name: Run Jans ORM 

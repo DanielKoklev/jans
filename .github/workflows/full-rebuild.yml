@@ -125,11 +125,11 @@ jobs:
       max-parallel: 1
       matrix:
         persistence:
-          # - "LDAP"
-          # - "MYSQL"
+          - "LDAP"
+          - "MYSQL"
           - "PGSQL"
-          # - "COUCHBASE"
-          # - "SPANNER"
+          - "COUCHBASE"
+          - "SPANNER"
       fail-fast: false
     steps:
 
@@ -188,6 +188,7 @@ jobs:
       with:
         files: |
           '${{ matrix.persistence }}-test-results/*.xml'
+          '${{ matrix.persistence }}-test-results/**/*.xml'
     
     # - name: Run Jans ORM 
     #   run: mvn -Dcfg=${{ env.VERSION_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install

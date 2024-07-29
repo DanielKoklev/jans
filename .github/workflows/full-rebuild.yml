@@ -103,11 +103,7 @@ jobs:
   #       done
 
   run-tests:
-    permissions:
-      contents: read
-      issues: read
-      checks: write
-      pull-requests: write
+    permissions: write-all
     runs-on: ubuntu-20.04
     env:
       MAVEN_SKIP_TESTS: false

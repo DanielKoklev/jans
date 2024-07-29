@@ -194,10 +194,8 @@ jobs:
       if: always()
       with:
         files: |
-          '${{ matrix.persistence }}-*/**/*.xml'
-          '${{ matrix.persistence }}-*/*.xml'
-          '${{ matrix.persistence }}*.xml'
           'test-results/**/*.xml'
+          '${{ matrix.persistence }}-test-results/**/*.xml'
     
     # - name: Run Jans ORM 
     #   run: mvn -Dcfg=${{ env.VERSION_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install

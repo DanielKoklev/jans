@@ -130,13 +130,6 @@ jobs:
           - "PGSQL"
           # - "COUCHBASE"
           # - "SPANNER"
-        # service:
-        #   - "jans-orm"
-        #   - "jans-auth"
-        #   - "agama"
-        #   - "jans-scim"
-        #   - "jans-config-api"
-        #   - "jans-fido2"
       fail-fast: false
     steps:
 

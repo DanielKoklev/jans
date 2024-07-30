@@ -173,3 +173,11 @@ jobs:
           report_paths: /tmp/reports/*.xml
           github_token: ${{ github.token }}
           fail_if_empty: false
+
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()
+      with:
+          name: JEST Tests
+          path: /tmp/reports/*.xml
+          reporter: jest-junit

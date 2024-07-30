@@ -167,12 +167,12 @@ jobs:
         name: ${{ matrix.persistence }}-test-results
         path: /tmp/reports
 
-    - name: Publish Test Report
-      uses: starburstdata/action-testng-report@v1
-      with:
-          report_paths: /tmp/reports/*.xml
-          github_token: ${{ github.token }}
-          fail_if_empty: false
+    # - name: Publish Test Report
+    #   uses: starburstdata/action-testng-report@v1
+    #   with:
+    #       report_paths: /tmp/reports/*.xml
+    #       github_token: ${{ github.token }}
+    #       fail_if_empty: false
 
     - name: Publish Test Report Surefire
       uses: scacap/action-surefire-report@v1

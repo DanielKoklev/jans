@@ -181,3 +181,4 @@ jobs:
           name: JEST Tests
           path: /tmp/reports/*.xml
           reporter: java-junit
+          token: ${{ github.token }}

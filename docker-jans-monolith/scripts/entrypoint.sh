@@ -158,12 +158,12 @@ prepare_scim_test() {
     && git checkout "${JANS_SOURCE_VERSION}" \
     && git sparse-checkout set jans-scim \
     && cd jans-scim \
-    && echo "Copying auth server test profiles from ephemeral server" \
+    && echo "Copying scim server test profiles from ephemeral server" \
     && cp -R /opt/jans/jans-setup/output/test/jans-scim ./ \
-    && echo "Creating auth server profile folders" \
+    && echo "Creating scim server profile folders" \
     && mkdir -p ./client/profiles/"${CN_HOSTNAME}" \
     && mkdir -p ./server/profiles/"${CN_HOSTNAME}" \
-    && echo "Copying auth server profile files" \
+    && echo "Copying scim server profile files" \
     && cp ./jans-scim/client/* ./client/profiles/"${CN_HOSTNAME}" \
     && cp ./jans-scim/server/* ./server/profiles"/${CN_HOSTNAME}" \
     && cd "$WORKING_DIRECTORY"
@@ -173,9 +173,9 @@ prepare_java_tests() {
   if [[ "${RUN_TESTS}" == "true" ]]; then
     echo "*****   Running Java tests!!   *****"
     echo "*****   Running Auth server tests!!   *****"
-    prepare_auth_server_test
+    # prepare_auth_server_test
     echo "*****   Running Scim tests!!   *****"
-    # prepare_scim_test
+    prepare_scim_test
     echo "*****   Java tests completed!!   *****"
   fi
 }

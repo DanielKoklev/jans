@@ -169,16 +169,7 @@ jobs:
 
     - name: Publish Test Report
       uses: starburstdata/action-testng-report@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.JANS_TOKEN }}
       with:
           report_paths: /tmp/reports/*.xml
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
           fail_if_empty: false
-
-    
-    # - name: Run Jans ORM 
-    #   run: mvn -Dcfg=${{ env.VERSION_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install
-
-    # - name: Run Jans Agama
-    #   run: mvn -Dcfg=${{ env.PROFILE_NAME }} -Dmaven.test.skip=${{ env.MAVEN_SKIP_TESTS }} clean compile install

@@ -198,7 +198,7 @@ prepare_java_tests() {
     prepare_auth_server_test
     echo "*****   Running Scim tests!!   *****"
     prepare_scim_test
-    echo "*****   Running Scim tests!!   *****"
+    echo "*****   Running Config Api tests!!   *****"
     # prepare_config_api_test
     echo "*****   Java tests completed!!   *****"
   fi

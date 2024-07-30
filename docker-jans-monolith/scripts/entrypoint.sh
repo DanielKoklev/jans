@@ -169,6 +169,27 @@ prepare_scim_test() {
     && cd "$WORKING_DIRECTORY"
 }
 
+prepare_config_api_test() {
+    WORKING_DIRECTORY=$PWD
+    echo "*****   cloning jans config-api folder!!   *****"
+    rm -rf /tmp/jans || echo "Jans isn't cloned yet..Cloning"\
+    && git clone --filter blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans \
+    && cd /tmp/jans \
+    && git sparse-checkout init --cone \
+    && git checkout "${JANS_SOURCE_VERSION}" \
+    && git sparse-checkout set jans-config-api \
+    && cd jans-config-api \
+    && echo "Copying config-api server test profiles from ephemeral server" \
+    && cp -R /opt/jans/jans-setup/output/test/jans-config-api ./ \
+    && echo "Creating config-api server profile folders" \
+    && mkdir -p ./client/profiles/"${CN_HOSTNAME}" \
+    && mkdir -p ./server/profiles/"${CN_HOSTNAME}" \
+    && echo "Copying config-api server profile files" \
+    && cp ./jans-config-api/client/* ./client/profiles/"${CN_HOSTNAME}" \
+    && cp ./jans-config-api/server/* ./server/profiles"/${CN_HOSTNAME}" \
+    && cd "$WORKING_DIRECTORY"
+}
+
 prepare_java_tests() {
   if [[ "${RUN_TESTS}" == "true" ]]; then
     echo "*****   Running Java tests!!   *****"
@@ -176,6 +197,8 @@ prepare_java_tests() {
     prepare_auth_server_test
     echo "*****   Running Scim tests!!   *****"
     prepare_scim_test
+    echo "*****   Running Scim tests!!   *****"
+    prepare_config_api_test
     echo "*****   Java tests completed!!   *****"
   fi
 }

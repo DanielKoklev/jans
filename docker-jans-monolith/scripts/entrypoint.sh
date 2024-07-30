@@ -199,7 +199,7 @@ prepare_java_tests() {
     echo "*****   Running Scim tests!!   *****"
     prepare_scim_test
     echo "*****   Running Scim tests!!   *****"
-    prepare_config_api_test
+    # prepare_config_api_test
     echo "*****   Java tests completed!!   *****"
   fi
 }

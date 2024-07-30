@@ -170,7 +170,7 @@ jobs:
     - name: Publish Test Report
       uses: starburstdata/action-testng-report@v1
       with:
-          report_paths: /tmp/reports/${{ matrix-persistence }}*.xml
+          report_paths: /tmp/reports/${{ matrix.persistence }}*.xml
           github_token: ${{ github.token }}
           fail_if_empty: false
 

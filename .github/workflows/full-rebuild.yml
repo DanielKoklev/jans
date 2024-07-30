@@ -179,5 +179,5 @@ jobs:
       if: success() || failure()
       with:
         github_token: ${{ github.token }}
-        report_paths: /tmp/reports/*.xml
+        report_paths: /tmp/reports/**.xml
 

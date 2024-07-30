@@ -185,8 +185,9 @@ prepare_config_api_test() {
     && mkdir -p ./client/profiles/"${CN_HOSTNAME}" \
     && mkdir -p ./server/profiles/"${CN_HOSTNAME}" \
     && echo "Copying config-api server profile files" \
-    && cp ./jans-config-api/client/* ./client/profiles/"${CN_HOSTNAME}" \
-    && cp ./jans-config-api/server/* ./server/profiles"/${CN_HOSTNAME}" \
+    && cp ./jans-config-api/client/* ./profiles/"${CN_HOSTNAME}"
+    && cp ./profiles/default/config-build.properties ./profiles/"${CN_HOSTNAME}"
+    && rm -rf ./jans-config-api
     && cd "$WORKING_DIRECTORY"
 }
 

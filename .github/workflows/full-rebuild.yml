@@ -178,6 +178,7 @@ jobs:
       uses: scacap/action-surefire-report@v1
       if: success() || failure()
       with:
+        name: Surefire Report
         github_token: ${{ github.token }}
         report_paths: /tmp/reports/*.xml
 

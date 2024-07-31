@@ -151,9 +151,12 @@ prepare_auth_server_test() {
 prepare_scim_test() {
     WORKING_DIRECTORY=$PWD
     echo "*****   cloning jans scim folder!!   *****"
-    rm -rf /tmp/jans || echo "Jans isn't cloned yet..Cloning"\
-    && git clone --filter blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans \
-    && cd /tmp/jans \
+    if [ -d "/tmp/jans" ]; then
+        echo "Jans directory already exists, skipping clone."
+    else
+        git clone --filter=blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans
+    fi
+    cd /tmp/jans \
     && git sparse-checkout init --cone \
     && git checkout "${JANS_SOURCE_VERSION}" \
     && git sparse-checkout set jans-scim \
@@ -166,15 +169,20 @@ prepare_scim_test() {
     && echo "Copying scim server profile files" \
     && cp ./jans-scim/client/* ./client/profiles/"${CN_HOSTNAME}" \
     && cp ./jans-scim/server/* ./server/profiles"/${CN_HOSTNAME}" \
+    && echo "Removing test profile folder" \
+    && rm -rf ./jans-scim \
     && cd "$WORKING_DIRECTORY"
 }
 
 prepare_config_api_test() {
     WORKING_DIRECTORY=$PWD
-    echo "*****   cloning jans config-api folder!!   *****"
-    rm -rf /tmp/jans || echo "Jans isn't cloned yet..Cloning"\
-    && git clone --filter blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans \
-    && cd /tmp/jans \
+    echo "*****   Cloning jans config-api folder!!   *****"
+    if [ -d "/tmp/jans" ]; then
+        echo "Jans directory already exists, skipping clone."
+    else
+        git clone --filter=blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans
+    fi
+    cd /tmp/jans \
     && git sparse-checkout init --cone \
     && git checkout "${JANS_SOURCE_VERSION}" \
     && git sparse-checkout set jans-config-api \
@@ -185,11 +193,15 @@ prepare_config_api_test() {
     && mkdir -p ./client/profiles/"${CN_HOSTNAME}" \
     && mkdir -p ./server/profiles/"${CN_HOSTNAME}" \
     && echo "Copying config-api server profile files" \
-    && cp ./jans-config-api/client/* ./profiles/"${CN_HOSTNAME}"
-    && cp ./profiles/default/config-build.properties ./profiles/"${CN_HOSTNAME}"
-    && rm -rf ./jans-config-api
+    && cp ./jans-config-api/client/* ./client/profiles/"${CN_HOSTNAME}" \
+    && cp ./jans-config-api/server/* ./server/profiles/"${CN_HOSTNAME}" \
+    && echo "Copying default configuration properties" \
+    && cp ./profiles/default/config-build.properties ./profiles/"${CN_HOSTNAME}" \
+    && echo "Removing test profile folder" \
+    && rm -rf ./jans-config-api \
     && cd "$WORKING_DIRECTORY"
 }
+
 
 prepare_java_tests() {
   if [[ "${RUN_TESTS}" == "true" ]]; then

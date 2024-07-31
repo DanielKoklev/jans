@@ -139,30 +139,7 @@ prepare_auth_server_test() {
     && cp /opt/jans/jans-setup/output/test/jans-auth/config-agama-test.properties . \
     && mkdir -p ./engine/profiles/"${CN_HOSTNAME}" \
     && mv config-agama-test.properties ./engine/profiles/"${CN_HOSTNAME}"/config-agama-test.properties  \
-    && cd ../jans-scim \
-    && echo "Copying scim server test profiles from ephemeral server" \
-    && cp -R /opt/jans/jans-setup/output/test/jans-scim ./ \
-    && echo "Creating scim server profile folders" \
-    && mkdir -p ./client/profiles/"${CN_HOSTNAME}" \
-    && mkdir -p ./server/profiles/"${CN_HOSTNAME}" \
-    && echo "Copying scim server profile files" \
-    && cp ./jans-scim/client/* ./client/profiles/"${CN_HOSTNAME}" \
-    && cp ./jans-scim/server/* ./server/profiles"/${CN_HOSTNAME}" \
-    && echo "Removing test profile folder" \
-    && rm -rf ./jans-scim \
-    && cd ../jans-config-api \
-    && echo "Copying config-api server test profiles from ephemeral server" \
-    && cp -R /opt/jans/jans-setup/output/test/jans-config-api ./ \
-    && echo "Creating config-api server profile folders" \
-    && mkdir -p ./client/profiles/"${CN_HOSTNAME}" \
-    && mkdir -p ./server/profiles/"${CN_HOSTNAME}" \
-    && echo "Copying config-api server profile files" \
-    && cp ./jans-config-api/client/* ./client/profiles/"${CN_HOSTNAME}" \
-    && cp ./jans-config-api/server/* ./server/profiles/"${CN_HOSTNAME}" \
-    && echo "Copying default configuration properties" \
-    && cp ./profiles/default/config-build.properties ./profiles/"${CN_HOSTNAME}" \
-    && echo "Removing test profile folder" \
-    && rm -rf ./jans-config-api \
+    && cd .. \
     && echo "Checking if the compilation and install is ok without running the tests" \
     && echo "Installing the jans cert in local keystore" \
     && openssl s_client -connect "${CN_HOSTNAME}":443 2>&1 |sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /tmp/httpd.crt \
@@ -231,11 +208,11 @@ prepare_java_tests() {
     echo "*****   Running Java tests!!   *****"
     echo "*****   Running Auth server tests!!   *****"
     prepare_auth_server_test
-    # echo "*****   Running Scim tests!!   *****"
-    # prepare_scim_test
-    # echo "*****   Running Config Api tests!!   *****"
-    # prepare_config_api_test
-    # echo "*****   Java tests completed!!   *****"
+    echo "*****   Running Scim tests!!   *****"
+    prepare_scim_test
+    echo "*****   Running Config Api tests!!   *****"
+    prepare_config_api_test
+    echo "*****   Java tests completed!!   *****"
   fi
 }
 

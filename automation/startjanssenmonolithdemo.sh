@@ -143,7 +143,7 @@ docker exec -w /tmp/jans/config-api docker-jans-monolith-jans-1 mvn -Dcfg="$JANS
 docker exec -w /tmp/jans/jans-fido2 docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true clean compile test-compile install
 echo -e "Running tests.. \n"
 docker exec -w /tmp/jans/jans-auth-server docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
-docker exec -w /tmp/jans/agama docker-jans-monoli th-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
+docker exec -w /tmp/jans/agama docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 docker exec -w /tmp/jans/jans-scim docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 docker exec -w /tmp/jans/config-api docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 docker exec -w /tmp/jans/jans-fido2 docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
@@ -153,7 +153,11 @@ docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/client/target/s
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/agama/model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-agama-model-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/test-model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-test-model-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-model-testng-results.xml
-docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-scim/client/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-scim-client-testng-results.xml
+docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-scim /tmp/jans/
+echo "test 1 \n"
+docker exec docker-jans-monolith-jans-1 ls /tmp/jans/
+echo "test 2 \n"
+ls /tmp/jans/
 EOF
 if [[ "$RUN_TESTS" == "true" ]]; then
   sudo bash testendpoints.sh

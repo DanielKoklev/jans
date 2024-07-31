@@ -157,7 +157,7 @@ docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-scim /tmp/jans/
 echo "test 1 \n"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/
 echo "test 2 \n"
-ls /tmp/jans/
+ls /tmp/jans/docker-jans-monolith/
 EOF
 if [[ "$RUN_TESTS" == "true" ]]; then
   sudo bash testendpoints.sh

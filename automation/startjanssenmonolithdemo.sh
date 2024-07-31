@@ -144,6 +144,7 @@ docker exec -w /tmp/jans/jans-fido2 docker-jans-monolith-jans-1 mvn -Dcfg="$JANS
 echo -e "Running tests.. \n"
 docker exec -w /tmp/jans/jans-auth-server docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 docker exec -w /tmp/jans/agama docker-jans-monoli th-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
+docker exec -w /tmp/jans/jans-scim docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 docker exec -w /tmp/jans/config-api docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 docker exec -w /tmp/jans/jans-fido2 docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test
 echo -e "copying reports.. \n"

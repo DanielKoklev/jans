@@ -167,7 +167,7 @@ jobs:
         name: ${{ matrix.persistence }}-test-results
         path: /tmp/reports
 
-    - name: Publish Test Report
+    - name: Publish Test Report ${{ matrix.persistence }}
       uses: starburstdata/action-testng-report@v1
       with:
           report_paths: /tmp/reports/${{ matrix.persistence }}*.xml

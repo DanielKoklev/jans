@@ -140,6 +140,27 @@ prepare_auth_server_test() {
     && mkdir -p ./engine/profiles/"${CN_HOSTNAME}" \
     && mv config-agama-test.properties ./engine/profiles/"${CN_HOSTNAME}"/config-agama-test.properties  \
     && cd .. \
+    && cd ../jans-scim \
+    && echo "Copying scim server test profiles from ephemeral server" \
+    && cp -R /opt/jans/jans-setup/output/test/scim-client ./ \
+    && echo "Creating scim server profile folders" \
+    && mkdir -p ./client/profiles/"${CN_HOSTNAME}" \
+    && echo "Copying scim server profile files" \
+    && cp ./scim-client/client/config-scim-test.properties ./client/profiles/"${CN_HOSTNAME}" \
+    && echo "Removing test profile folder" \
+    && rm -rf ./scim-client \
+    && cd ../jans-config-api \
+    && echo "Copying config-api test profiles from ephemeral server" \
+    && cp -R /opt/jans/jans-setup/output/test/jans-config-api ./ \
+    && echo "Creating config-api profile folders" \
+    && mkdir -p ./profiles/"${CN_HOSTNAME}" \
+    && echo "Copying config-api server profile files" \
+    && cp ./jans-config-api/client/* ./profiles/"${CN_HOSTNAME}" \
+    && echo "Copying default configuration properties" \
+    && cp ./profiles/default/config-build.properties ./profiles/"${CN_HOSTNAME}" \
+    && echo "Removing test profile folder" \
+    && rm -rf ./jans-config-api \
+    && cd .. \
     && echo "Checking if the compilation and install is ok without running the tests" \
     && echo "Installing the jans cert in local keystore" \
     && openssl s_client -connect "${CN_HOSTNAME}":443 2>&1 |sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /tmp/httpd.crt \
@@ -204,11 +225,11 @@ prepare_java_tests() {
     echo "*****   Running Java tests!!   *****"
     echo "*****   Running Auth server tests!!   *****"
     prepare_auth_server_test
-    echo "*****   Running Scim tests!!   *****"
-    prepare_scim_test
-    echo "*****   Running Config Api tests!!   *****"
-    prepare_config_api_test
-    echo "*****   Java tests completed!!   *****"
+    # echo "*****   Running Scim tests!!   *****"
+    # prepare_scim_test
+    # echo "*****   Running Config Api tests!!   *****"
+    # prepare_config_api_test
+    # echo "*****   Java tests completed!!   *****"
   fi
 }
 

@@ -162,15 +162,13 @@ prepare_scim_test() {
     && git sparse-checkout set jans-scim \
     && cd jans-scim \
     && echo "Copying scim server test profiles from ephemeral server" \
-    && cp -R /opt/jans/jans-setup/output/test/jans-scim ./ \
+    && cp -R /opt/jans/jans-setup/output/test/scim-client ./ \
     && echo "Creating scim server profile folders" \
     && mkdir -p ./client/profiles/"${CN_HOSTNAME}" \
-    && mkdir -p ./server/profiles/"${CN_HOSTNAME}" \
     && echo "Copying scim server profile files" \
-    && cp ./jans-scim/client/* ./client/profiles/"${CN_HOSTNAME}" \
-    && cp ./jans-scim/server/* ./server/profiles"/${CN_HOSTNAME}" \
+    && cp ./scim-client/client/config-scim-test.properties ./client/profiles/"${CN_HOSTNAME}" \
     && echo "Removing test profile folder" \
-    && rm -rf ./jans-scim \
+    && rm -rf ./scim-client \
     && cd "$WORKING_DIRECTORY"
 }
 
@@ -187,14 +185,12 @@ prepare_config_api_test() {
     && git checkout "${JANS_SOURCE_VERSION}" \
     && git sparse-checkout set jans-config-api \
     && cd jans-config-api \
-    && echo "Copying config-api server test profiles from ephemeral server" \
+    && echo "Copying config-api test profiles from ephemeral server" \
     && cp -R /opt/jans/jans-setup/output/test/jans-config-api ./ \
-    && echo "Creating config-api server profile folders" \
-    && mkdir -p ./client/profiles/"${CN_HOSTNAME}" \
-    && mkdir -p ./server/profiles/"${CN_HOSTNAME}" \
+    && echo "Creating config-api profile folders" \
+    && mkdir -p ./profiles/"${CN_HOSTNAME}" \
     && echo "Copying config-api server profile files" \
-    && cp ./jans-config-api/client/* ./client/profiles/"${CN_HOSTNAME}" \
-    && cp ./jans-config-api/server/* ./server/profiles/"${CN_HOSTNAME}" \
+    && cp ./jans-config-api/client/* ./profiles/"${CN_HOSTNAME}" \
     && echo "Copying default configuration properties" \
     && cp ./profiles/default/config-build.properties ./profiles/"${CN_HOSTNAME}" \
     && echo "Removing test profile folder" \

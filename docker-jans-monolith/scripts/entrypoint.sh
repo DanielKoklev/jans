@@ -247,7 +247,7 @@ start_services() {
 check_installed_jans
 start_services
 register_fqdn
-prepare_java_tests || "Java test preparations failed!!"
+# prepare_java_tests || "Java test preparations failed!!"
 
 # use -F option to follow (and retry) logs
 tail -F /opt/jans/jetty/jans-auth/logs/*.log \

@@ -154,6 +154,8 @@ docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/test-model/targ
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-model-testng-results.xml
 echo "test 1\n"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/
+echo "test 2\n"
+ls /tmp/jans/
 EOF
 if [[ "$RUN_TESTS" == "true" ]]; then
   sudo bash testendpoints.sh

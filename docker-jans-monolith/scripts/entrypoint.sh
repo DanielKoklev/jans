@@ -166,8 +166,7 @@ prepare_auth_server_test() {
     && openssl s_client -connect "${CN_HOSTNAME}":443 2>&1 |sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /tmp/httpd.crt \
     && TrustStorePW=$(grep -Po '(?<=defaultTrustStorePW=)\S+' /opt/jans/jans-setup/setup.properties.last) \
     && keytool -import -trustcacerts -noprompt -storepass "${TrustStorePW}" -alias "${CN_HOSTNAME}" -keystore /usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts -file /tmp/httpd.crt \
-    && cd "$WORKING_DIRECTORY" \
-    && ls /tmp/jans/ > /tmp/jans/ls-log.txt
+    && cd "$WORKING_DIRECTORY"
 }
 
 prepare_scim_test() {
@@ -225,7 +224,8 @@ prepare_java_tests() {
   if [[ "${RUN_TESTS}" == "true" ]]; then
     echo "*****   Running Java tests!!   *****"
     # echo "*****   Running Auth server tests!!   *****"
-    prepare_auth_server_test
+    prepare_auth_server_test && \
+    ls /tmp/jans/ > /tmp/jans/ls-log.txt
     echo "*****   Running Scim tests!!   *****"
     # prepare_scim_test
     echo "*****   Running Config Api tests!!   *****"

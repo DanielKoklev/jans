@@ -251,7 +251,7 @@ class TestDataLoader(BaseInstaller, SetupUtils):
 
         # Client keys deployment
         target_jwks_fn = os.path.join(base.current_app.HttpdInstaller.server_root, 'jans_test_client_keys.zip')
-        base.download('https://github.com/JanssenProject/jans/raw/main/jans-auth-server/client/src/test/resources/jans_test_client_keys.zip', target_jwks_fn)
+        base.download('https://github.com/DanielKoklev/jans/raw/main/jans-auth-server/client/src/test/resources/jans_test_client_keys.zip', target_jwks_fn)
         shutil.unpack_archive(target_jwks_fn, base.current_app.HttpdInstaller.server_root)
 
         self.removeFile(target_jwks_fn)

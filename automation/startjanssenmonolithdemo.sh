@@ -156,6 +156,8 @@ docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/model/target/su
 echo "test 1\n"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/
 echo "test 2\n"
+docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-auth-server/
+echo "test 2\n"
 docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "testng-results.xml"
 EOF
 if [[ "$RUN_TESTS" == "true" ]]; then

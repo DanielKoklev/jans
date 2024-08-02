@@ -120,7 +120,7 @@ prepare_auth_server_test() {
     && cd /tmp/jans \
     && git sparse-checkout init --cone \
     && git checkout "${JANS_SOURCE_VERSION}" \
-    && git sparse-checkout set jans-auth-server jans-scim jans-config-api \
+    && git sparse-checkout set jans-auth-server jans-scim jans-config-api jans-orm \
     && cd jans-auth-server \
     && echo "Copying auth server test profiles from ephemeral server" \
     && cp -R /opt/jans/jans-setup/output/test/jans-auth ./ \

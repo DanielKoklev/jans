@@ -136,7 +136,7 @@ prepare_auth_server_test() {
     && echo "Removing test profile folder" \
     && rm -rf ./jans-auth \
     && cd agama \
-    && cp /opt/jans/jans-setup/output/test/jans-auth/config-agama-test.properties . \
+    && cp /opt/jans/jans-setup/output/test/agama/config-agama-test.properties . \
     && mkdir -p ./engine/profiles/"${CN_HOSTNAME}" \
     && mv config-agama-test.properties ./engine/profiles/"${CN_HOSTNAME}"/config-agama-test.properties  \
     && cd .. \
@@ -183,7 +183,7 @@ prepare_scim_test() {
     && git sparse-checkout set jans-scim \
     && cd jans-scim \
     && echo "Copying scim server test profiles from ephemeral server" \
-    && cp -R /opt/jans/jans-setup/templates/test/scim-client ./ \
+    && cp -R /opt/jans/jans-setup/output/test/scim-client ./ \
     && echo "Creating scim server profile folders" \
     && mkdir -p ./client/profiles/"${CN_HOSTNAME}" \
     && echo "Copying scim server profile files" \

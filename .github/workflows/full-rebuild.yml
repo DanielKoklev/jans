@@ -166,12 +166,6 @@ jobs:
       with:
         name: ${{ matrix.persistence }}-test-results
         path: /tmp/reports
-  
-    - name: Upload Docker Log
-      uses: actions/upload-artifact@v4
-      with:
-        name: Docker Log
-        path: /tmp/jans/output.txt
 
     - name: Upload Docker Log2
       uses: actions/upload-artifact@v4

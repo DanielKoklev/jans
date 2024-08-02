@@ -112,7 +112,7 @@ register_fqdn() {
     fi
 }
 
-prepare_auth_server_test() {
+prepare_tests() {
     WORKING_DIRECTORY=$PWD
     echo "*****   cloning jans auth server folder!!   *****"
     rm -rf /tmp/jans || echo "Jans isn't cloned yet..Cloning"\
@@ -224,7 +224,7 @@ prepare_java_tests() {
   if [[ "${RUN_TESTS}" == "true" ]]; then
     echo "*****   Running Java tests!!   *****"
     # echo "*****   Running Auth server tests!!   *****"
-    prepare_auth_server_test
+    prepare_tests
     echo "*****   Running Scim tests!!   *****"
     # prepare_scim_test
     echo "*****   Running Config Api tests!!   *****"

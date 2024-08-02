@@ -207,7 +207,7 @@ prepare_config_api_test() {
     && git sparse-checkout set jans-config-api \
     && cd jans-config-api \
     && echo "Copying config-api test profiles from ephemeral server" \
-    && cp -R /opt/jans/jans-setup/templates/test/jans-config-api ./ \
+    && cp -R /opt/jans/jans-setup/output/test/jans-config-api ./ \
     && echo "Creating config-api profile folders" \
     && mkdir -p ./profiles/"${CN_HOSTNAME}" \
     && echo "Copying config-api server profile files" \

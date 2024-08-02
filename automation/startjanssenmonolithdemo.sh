@@ -154,6 +154,7 @@ docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/test-model/targ
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-model-testng-results.xml
 echo "test 1\n"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/
+docker exec docker-jans-monolith-jans-1 ls /opt/jans/jans-setup/output/test/
 echo "test 2\n"
 ls /tmp/jans/
 echo "test 3\n"

@@ -157,7 +157,7 @@ echo "test 1\n"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/
 echo "test 2\n"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-auth-server/
-echo "test 2\n"
+echo "test 3\n"
 docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "testng-results.xml"
 EOF
 if [[ "$RUN_TESTS" == "true" ]]; then

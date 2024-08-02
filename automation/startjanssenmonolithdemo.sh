@@ -157,8 +157,6 @@ echo "test 1\n"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/
 echo "test 2\n"
 docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "testng-results.xml"
-echo "test 3\n"
-docker exec docker-jans-monolith-jans-1 cat /tmp/jans/ls-log.txt
 EOF
 if [[ "$RUN_TESTS" == "true" ]]; then
   sudo bash testendpoints.sh

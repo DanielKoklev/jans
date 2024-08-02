@@ -139,7 +139,7 @@ docker exec -w /tmp/jans/jans-orm docker-jans-monolith-jans-1 mvn -Dmaven.test.s
 docker exec -w /tmp/jans/jans-auth-server docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true -fae clean compile install
 docker exec -w /tmp/jans/jans-auth-server/agama docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true -fae clean compile install
 docker exec -w /tmp/jans/jans-scim docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true clean compile install site
-docker exec -w /tmp/jans/config-api docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true clean compile install
+docker exec -w /tmp/jans/jans-config-api docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true clean compile install
 docker exec -w /tmp/jans/jans-fido2 docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=true clean compile test-compile install
 echo -e "Running tests.. \n"
 docker exec -w /tmp/jans/jans-orm docker-jans-monolith-jans-1 mvn -Dcfg="$JANS_FQDN" -Dmaven.test.skip=false test

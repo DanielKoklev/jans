@@ -89,7 +89,7 @@ ENV CN_HOSTNAME="demoexample.jans.io" \
     RDBMS_PASSWORD="" \
     RDBMS_HOST="" \
     IS_FQDN_REGISTERED="false" \
-    RUN_TESTS="false"
+    RUN_TESTS="true"
 
 # ==========
 # misc stuff

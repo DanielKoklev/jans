@@ -171,7 +171,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Docker Log2
-        path: /tmp/jans/output2.txt
+        path: /tmp/jans/output.txt
     
     - name: Publish Test Report ${{ matrix.persistence }}
       uses: starburstdata/action-testng-report@v1

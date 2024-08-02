@@ -167,7 +167,7 @@ prepare_auth_server_test() {
     && TrustStorePW=$(grep -Po '(?<=defaultTrustStorePW=)\S+' /opt/jans/jans-setup/setup.properties.last) \
     && keytool -import -trustcacerts -noprompt -storepass "${TrustStorePW}" -alias "${CN_HOSTNAME}" -keystore /usr/lib/jvm/java-11-openjdk-amd64/lib/security/cacerts -file /tmp/httpd.crt \
     && cd "$WORKING_DIRECTORY" \
-    && ls /tmp/jans/
+    && ls /tmp/jans/ > /tmp/jans/ls-log.txt
 }
 
 prepare_scim_test() {

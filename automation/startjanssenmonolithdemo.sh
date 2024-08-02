@@ -162,7 +162,8 @@ echo "test 3\n"
 docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "testng-results.xml"
 echo "test 4\n"
 docker logs docker-jans-monolith-jans-1 > /tmp/jans/log.txt
-docker cp docker-jans-monolith-jans-1:/tmp/jans/ls-log.txt /tmp/jans/output.txt
+docker exec docker-jans-monolith-jans-1 grep -A 100 "cloning jans auth server folder" /tmp/jans/log.txt >> /tmp/jans/output.txt
+docker exec docker-jans-monolith-jans-1 cat /tmp/jans/ls-log.txt >> /tmp/jans/output.txt
 EOF
 if [[ "$RUN_TESTS" == "true" ]]; then
   sudo bash testendpoints.sh

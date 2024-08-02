@@ -224,11 +224,11 @@ prepare_java_tests() {
   if [[ "${RUN_TESTS}" == "true" ]]; then
     echo "*****   Running Java tests!!   *****"
     # echo "*****   Running Auth server tests!!   *****"
-    # prepare_auth_server_test
+    prepare_auth_server_test
     echo "*****   Running Scim tests!!   *****"
-    prepare_scim_test
+    # prepare_scim_test
     echo "*****   Running Config Api tests!!   *****"
-    prepare_config_api_test
+    # prepare_config_api_test
     echo "*****   Java tests completed!!   *****"
   fi
 }

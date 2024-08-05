@@ -167,11 +167,11 @@ echo "test 1\n"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/
 echo "test 2\n"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/profiles/default/
+echo "test 3"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/profiles/
-echo "test 3\n"
+echo "test 4\n"
 docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "testng-results.xml"
-echo "test 4"
-docker exec docker-jans-monolith-jans-1 echo $CN_HOSTNAME
+
 EOF
 if [[ "$RUN_TESTS" == "true" ]]; then
   sudo bash testendpoints.sh

@@ -169,6 +169,8 @@ echo "test 2\n"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/profiles/default/
 echo "test 3"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/profiles/
+echo "test 123"
+docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-scim/client/profiles/
 echo "test 4\n"
 docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "testng-results.xml"
 

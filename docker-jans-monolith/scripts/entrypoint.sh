@@ -151,7 +151,6 @@ prepare_auth_server_tests() {
 prepare_scim_test() {
     WORKING_DIRECTORY=$PWD
     cd /tmp/jans \
-    && git sparse-checkout set jans-scim \
     && cd jans-scim \
     && echo "Copying scim server test profiles from ephemeral server" \
     && cp -R /opt/jans/jans-setup/output/test/scim-client ./ \
@@ -168,7 +167,6 @@ prepare_scim_test() {
 prepare_config_api_test() {
     WORKING_DIRECTORY=$PWD
     cd /tmp/jans \
-    && git sparse-checkout set jans-config-api \
     && cd jans-config-api \
     && echo "Copying config-api test profiles from ephemeral server" \
     && cp -R /opt/jans/jans-setup/output/test/jans-config-api ./ \

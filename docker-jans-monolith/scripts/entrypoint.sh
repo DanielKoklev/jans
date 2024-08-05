@@ -150,9 +150,11 @@ prepare_tests() {
     && echo "Removing test profile folder" \
     && rm -rf ./scim-client \
     && cd ../jans-config-api \
+    && rm -rf ./profiles/"${CN_HOSTNAME}" \
     && echo "Copying config-api test profiles from ephemeral server" \
     && cp -R /opt/jans/jans-setup/output/test/jans-config-api ./ \
     && echo "Creating config-api profile folders" \
+    && rm -rf ./profiles/"${CN_HOSTNAME}" \
     && mkdir -p ./profiles/"${CN_HOSTNAME}" \
     && echo "Copying config-api server profile files" \
     && cp ./jans-config-api/client/* ./profiles/"${CN_HOSTNAME}" \

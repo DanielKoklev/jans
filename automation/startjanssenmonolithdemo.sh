@@ -153,6 +153,16 @@ docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/client/target/s
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/agama/model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-agama-model-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/test-model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-test-model-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-auth-server/model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-auth-model-testng-results.xml
+docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/couchbase/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-couchbase-testng-results.xml
+docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/spanner-sample/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-spanner-sample-testng-results.xml
+docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/couchbase-sample/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-couchbase-sample-testng-results.xml
+docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/sql-sample/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-sql-sample-testng-results.xml
+docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/sql/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-sql-testng-results.xml
+docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/spanner/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-spanner-testng-results.xml
+docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/util/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-util-testng-results.xml
+docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-model-testng-results.xml
+docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/filter/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-filter-testng-results.xml
+docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-scim/client/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-scim-client-testng-results.xml
 echo "test 1\n"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/
 echo "test 2\n"

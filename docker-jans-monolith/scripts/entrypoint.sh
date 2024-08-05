@@ -169,55 +169,55 @@ prepare_tests() {
     && cd "$WORKING_DIRECTORY"
 }
 
-prepare_scim_test() {
-    WORKING_DIRECTORY=$PWD
-    echo "*****   cloning jans scim folder!!   *****"
-    if [ -d "/tmp/jans" ]; then
-        echo "Jans directory already exists, skipping clone."
-    else
-        git clone --filter=blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans
-    fi
-    cd /tmp/jans \
-    && git sparse-checkout init --cone \
-    && git checkout "${JANS_SOURCE_VERSION}" \
-    && git sparse-checkout set jans-scim \
-    && cd jans-scim \
-    && echo "Copying scim server test profiles from ephemeral server" \
-    && cp -R /opt/jans/jans-setup/output/test/scim-client ./ \
-    && echo "Creating scim server profile folders" \
-    && mkdir -p ./client/profiles/"${CN_HOSTNAME}" \
-    && echo "Copying scim server profile files" \
-    && cp ./scim-client/client/config-scim-test.properties ./client/profiles/"${CN_HOSTNAME}" \
-    && echo "Removing test profile folder" \
-    && rm -rf ./scim-client \
-    && cd "$WORKING_DIRECTORY"
-}
+# prepare_scim_test() {
+#     WORKING_DIRECTORY=$PWD
+#     echo "*****   cloning jans scim folder!!   *****"
+#     if [ -d "/tmp/jans" ]; then
+#         echo "Jans directory already exists, skipping clone."
+#     else
+#         git clone --filter=blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans
+#     fi
+#     cd /tmp/jans \
+#     && git sparse-checkout init --cone \
+#     && git checkout "${JANS_SOURCE_VERSION}" \
+#     && git sparse-checkout set jans-scim \
+#     && cd jans-scim \
+#     && echo "Copying scim server test profiles from ephemeral server" \
+#     && cp -R /opt/jans/jans-setup/output/test/scim-client ./ \
+#     && echo "Creating scim server profile folders" \
+#     && mkdir -p ./client/profiles/"${CN_HOSTNAME}" \
+#     && echo "Copying scim server profile files" \
+#     && cp ./scim-client/client/config-scim-test.properties ./client/profiles/"${CN_HOSTNAME}" \
+#     && echo "Removing test profile folder" \
+#     && rm -rf ./scim-client \
+#     && cd "$WORKING_DIRECTORY"
+# }
 
-prepare_config_api_test() {
-    WORKING_DIRECTORY=$PWD
-    echo "*****   Cloning jans config-api folder!!   *****"
-    if [ -d "/tmp/jans" ]; then
-        echo "Jans directory already exists, skipping clone."
-    else
-        git clone --filter=blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans
-    fi
-    cd /tmp/jans \
-    && git sparse-checkout init --cone \
-    && git checkout "${JANS_SOURCE_VERSION}" \
-    && git sparse-checkout set jans-config-api \
-    && cd jans-config-api \
-    && echo "Copying config-api test profiles from ephemeral server" \
-    && cp -R /opt/jans/jans-setup/output/test/jans-config-api ./ \
-    && echo "Creating config-api profile folders" \
-    && mkdir -p ./profiles/"${CN_HOSTNAME}" \
-    && echo "Copying config-api server profile files" \
-    && cp ./jans-config-api/client/* ./profiles/"${CN_HOSTNAME}" \
-    && echo "Copying default configuration properties" \
-    && cp ./profiles/default/config-build.properties ./profiles/"${CN_HOSTNAME}" \
-    && echo "Removing test profile folder" \
-    && rm -rf ./jans-config-api \
-    && cd "$WORKING_DIRECTORY"
-}
+# prepare_config_api_test() {
+#     WORKING_DIRECTORY=$PWD
+#     echo "*****   Cloning jans config-api folder!!   *****"
+#     if [ -d "/tmp/jans" ]; then
+#         echo "Jans directory already exists, skipping clone."
+#     else
+#         git clone --filter=blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans
+#     fi
+#     cd /tmp/jans \
+#     && git sparse-checkout init --cone \
+#     && git checkout "${JANS_SOURCE_VERSION}" \
+#     && git sparse-checkout set jans-config-api \
+#     && cd jans-config-api \
+#     && echo "Copying config-api test profiles from ephemeral server" \
+#     && cp -R /opt/jans/jans-setup/output/test/jans-config-api ./ \
+#     && echo "Creating config-api profile folders" \
+#     && mkdir -p ./profiles/"${CN_HOSTNAME}" \
+#     && echo "Copying config-api server profile files" \
+#     && cp ./jans-config-api/client/* ./profiles/"${CN_HOSTNAME}" \
+#     && echo "Copying default configuration properties" \
+#     && cp ./profiles/default/config-build.properties ./profiles/"${CN_HOSTNAME}" \
+#     && echo "Removing test profile folder" \
+#     && rm -rf ./jans-config-api \
+#     && cd "$WORKING_DIRECTORY"
+# }
 
 
 prepare_java_tests() {

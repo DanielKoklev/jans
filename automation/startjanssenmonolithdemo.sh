@@ -163,14 +163,6 @@ docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/util/target/surefire-re
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-model-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/filter/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-filter-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-scim/client/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-scim-client-testng-results.xml
-echo "test 1\n"
-docker exec docker-jans-monolith-jans-1 ls /tmp/jans/
-echo "test 2\n"
-docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/profiles/default/
-echo "test 3"
-docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/profiles/
-echo "test 123"
-docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-scim/client/profiles/
 echo "test 4\n"
 docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "testng-results.xml"
 

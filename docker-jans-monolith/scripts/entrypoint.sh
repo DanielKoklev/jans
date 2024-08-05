@@ -158,7 +158,7 @@ prepare_tests() {
     && echo "Copying config-api server profile files" \
     && cp ./jans-config-api/client/* ./profiles/"${CN_HOSTNAME}" \
     && echo "Copying default configuration properties" \
-    && cp ./profiles/default/config-api-test.properties ./profiles/"${CN_HOSTNAME}" \
+    && cp ./profiles/default/config-build.properties ./profiles/"${CN_HOSTNAME}" \
     && echo "Removing test profile folder" \
     && rm -rf ./jans-config-api \
     && cd .. \

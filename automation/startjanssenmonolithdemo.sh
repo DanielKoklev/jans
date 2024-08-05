@@ -163,17 +163,18 @@ docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/util/target/surefire-re
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/model/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-model-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/filter/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-filter-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-scim/client/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-scim-client-testng-results.xml
-docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-config-api/server/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-config-api-server-testng-results.xml
+docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-config-api/server/target/surefire-reports/results-json.txt /tmp/reports/$JANS_PERSISTENCE-jans-config-api-server-testng-results.xml
 docker cp docker-jans-monolith-jans-1:
 docker cp docker-jans-monolith-jans-1:
 echo "test 13233\n"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/server/target/surefire-reports
-echo "test 1\n"
-docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "testng-results.xml"
+echo "test 232323"
+docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/plugins/scim-plugin/target/surefire-reports/
+echo "test 2328768"
+docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/plugins/user-mgt-plugin/surefire-reports/
 echo "test 2\n"
 docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "surefire-reports"
-echo "test 3\n"
-docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/profiles/demoexample.jans.io/
+
 
 EOF
 if [[ "$RUN_TESTS" == "true" ]]; then

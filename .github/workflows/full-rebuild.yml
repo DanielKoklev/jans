@@ -173,6 +173,7 @@ jobs:
           report_paths: /tmp/reports/${{ matrix.persistence }}*.xml
           github_token: ${{ github.token }}
           fail_if_empty: false
+          check_name: Test Report ${{ matrix.persistence }}
 
     # - name: Publish Test Report Surefire
     #   uses: scacap/action-surefire-report@v1

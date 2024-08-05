@@ -166,7 +166,8 @@ docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-scim/client/target/surefire
 echo "test 1\n"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/
 echo "test 2\n"
-docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-auth-server/
+docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/profiles/default/
+docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/profiles/
 echo "test 3\n"
 docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "testng-results.xml"
 echo "test 4"

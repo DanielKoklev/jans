@@ -104,5 +104,6 @@ LABEL org.opencontainers.image.url="ghcr.io/janssenproject/jans/monolith" \
 
 COPY scripts /app/scripts
 RUN chmod +x /app/scripts/entrypoint.sh
+RUN cat /app/scripts/entrypoint.sh
 
 CMD ["/bin/bash", "-c", "rm -rf /opt/jetty-11.0/temp/*; exec /app/scripts/entrypoint.sh --log-target=journal 3>&1"]

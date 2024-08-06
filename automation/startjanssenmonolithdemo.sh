@@ -171,9 +171,13 @@ docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/server/targ
 echo "test 232323"
 docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/plugins/scim-plugin/target/surefire-reports/
 echo "test 2328768"
-docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/plugins/user-mgt-plugin/surefire-reports/
+docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/plugins/user-mgt-plugin/target/surefire-reports/
 echo "test 2\n"
 docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "surefire-reports"
+echo "test 23311\n"
+docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "testng-results.xml"
+echo "test 274378\n"
+docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-fido2/client/target/surefire-reports/
 
 
 EOF

@@ -177,7 +177,7 @@ docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "surefire-reports"
 echo "test 23311\n"
 docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "testng-results.xml"
 echo "test 274378\n"
-docker exec docker-jans-monolith-jans-1 ls -la /tmp/jans/jans-fido2/server/target/surefire-reports/
+docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-fido2/server/target/surefire-reports/
 
 
 EOF

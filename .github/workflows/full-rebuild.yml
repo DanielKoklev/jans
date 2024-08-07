@@ -146,12 +146,6 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
         cache: 'maven'
-    
-    - name: Maven Settings
-      uses: s4u/maven-settings-action@v2.5.0
-      with:
-        servers: '[
-          {"id": "github","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}]'
 
     - name: Run Jans Monolith
       env:

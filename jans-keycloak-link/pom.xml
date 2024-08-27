@@ -16,7 +16,7 @@
 	  <repository>
           <id>github</id>
           <name>GitHub Packages</name>
-          <url>https://maven.pkg.github.com/DanielKoklev/jans</url>
+          <url>https://maven.pkg.github.com/JanssenProject/jans</url>
       </repository>
   </distributionManagement>
 
@@ -39,7 +39,7 @@
     <repository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/DanielKoklev/jans</url>
+			<url>https://maven.pkg.github.com/JanssenProject/jans</url>
     </repository>
     <repository>
       <id>mavencentral</id>

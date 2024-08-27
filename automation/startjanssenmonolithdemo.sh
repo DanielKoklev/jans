@@ -49,7 +49,7 @@ WORKING_DIRECTORY=$PWD
 # note that as we're pulling from a monorepo (with multiple project in it)
 # we are using partial-clone and sparse-checkout to get the docker-jans-monolith code
 rm -rf /tmp/jans || echo "/tmp/jans doesn't exist"
-git clone --filter blob:none --no-checkout https://github.com/DanielKoklev/jans /tmp/jans \
+git clone --filter blob:none --no-checkout https://github.com/JanssenProject/jans /tmp/jans \
     && cd /tmp/jans \
     && git sparse-checkout init --cone \
     && git sparse-checkout set docker-jans-monolith \

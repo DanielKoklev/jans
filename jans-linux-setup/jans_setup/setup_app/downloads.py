@@ -14,7 +14,7 @@ def download_jans_acrhieve():
         return
 
     base.download(
-            'https://github.com/DanielKoklev/jans/archive/refs/heads/{}.zip'.format(base.current_app.app_info['SETUP_BRANCH']),
+            'https://github.com/JanssenProject/jans/archive/refs/heads/{}.zip'.format(base.current_app.app_info['SETUP_BRANCH']),
             base.current_app.jans_zip,
             verbose=True
             )

@@ -93,12 +93,12 @@ jobs:
   #   - name: Clean up PR assets
   #     run: |
   #       # List all SNAPSHOT versions
-  #       versions=$(curl -s -H "Authorization: token ${{ secrets.JANS_TOKEN }}" "https://maven.pkg.github.com/DanielKoklev/jans/maven-metadata.xml" | grep -oP '(?<=<version>)[^<]+')
+  #       versions=$(curl -s -H "Authorization: token ${{ secrets.JANS_TOKEN }}" "https://maven.pkg.github.com/JanssenProject/jans/maven-metadata.xml" | grep -oP '(?<=<version>)[^<]+')
         
   #       for version in $versions; do
   #         if [[ $version == *-SNAPSHOT ]]; then
   #           # Delete the version from GitHub Packages
-  #           curl -X DELETE -H "Authorization: token ${{ secrets.JANS_TOKEN }}" "https://maven.pkg.github.com/DanielKoklev/jans/io/jans/${{ matrix.service }}/$version"
+  #           curl -X DELETE -H "Authorization: token ${{ secrets.JANS_TOKEN }}" "https://maven.pkg.github.com/JanssenProject/jans/io/jans/${{ matrix.service }}/$version"
   #         fi
   #       done
 

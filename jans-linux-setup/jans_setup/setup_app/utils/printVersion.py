@@ -18,7 +18,7 @@ except:
 def get_latest_commit(service):
     if service == 'jans-auth':
         service = 'jans-auth-server'
-    url = f'https://api.github.com/repos/DanielKoklev/jans/commits?path={service}&per_page=1'
+    url = f'https://api.github.com/repos/JanssenProject/jans/commits?path={service}&per_page=1'
     try:
         f = urlopen(url)
         content = f.read()
@@ -82,7 +82,7 @@ if __name__ == '__main__':
         if args.show_latest_commit:
             latest_commit = get_latest_commit(service)
             if not 'ERROR:' in latest_commit and info['build'] != latest_commit:
-                compare_build = f'diff: https://github.com/DanielKoklev/jans/compare/{latest_commit}...{info["build"]}'
+                compare_build = f'diff: https://github.com/JanssenProject/jans/compare/{latest_commit}...{info["build"]}'
             else:
                 compare_build = ''
             if not args.json:

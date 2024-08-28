@@ -208,15 +208,10 @@ start_services() {
   /opt/dist/scripts/jans-link start ||:  # no-op if script is missing
 }
 
-echo "minavam 1"
 check_installed_jans
-echo "minavam 2"
 start_services
-echo "minavam 3"
 register_fqdn
-echo "minavam 4"
 prepare_java_tests || "Java test preparations failed!!"
-echo "minavam 5"
 
 # use -F option to follow (and retry) logs
 tail -F /opt/jans/jetty/jans-auth/logs/*.log \

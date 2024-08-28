@@ -52,8 +52,8 @@ rm -rf /tmp/jans || echo "/tmp/jans doesn't exist"
 git clone --filter blob:none --no-checkout https://github.com/JanssenProject/jans /tmp/jans \
     && cd /tmp/jans \
     && git sparse-checkout init --cone \
+    && git checkout "$JANS_BUILD_COMMIT" \
     && git sparse-checkout set docker-jans-monolith \
-    && git checkout main \
     && cd "$WORKING_DIRECTORY"
 
 # -- Parse compose and docker file
@@ -164,21 +164,6 @@ docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/model/target/surefire-r
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-orm/filter/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-orm-filter-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-scim/client/target/surefire-reports/testng-results.xml /tmp/reports/$JANS_PERSISTENCE-jans-scim-client-testng-results.xml
 docker cp docker-jans-monolith-jans-1:/tmp/jans/jans-config-api/server/target/surefire-reports/results-json.txt /tmp/reports/$JANS_PERSISTENCE-jans-config-api-server-testng-results.xml
-docker cp docker-jans-monolith-jans-1:
-docker cp docker-jans-monolith-jans-1:
-echo "test 13233\n"
-docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/server/target/surefire-reports
-echo "test 232323"
-docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/plugins/scim-plugin/target/surefire-reports/
-echo "test 2328768"
-docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-config-api/plugins/user-mgt-plugin/target/surefire-reports/
-echo "test 2\n"
-docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "surefire-reports"
-echo "test 23311\n"
-docker exec docker-jans-monolith-jans-1 find /tmp/ -iname "testng-results.xml"
-echo "test 274378\n"
-docker exec docker-jans-monolith-jans-1 ls /tmp/jans/jans-fido2/server/target/surefire-reports/
-
 
 EOF
 if [[ "$RUN_TESTS" == "true" ]]; then
